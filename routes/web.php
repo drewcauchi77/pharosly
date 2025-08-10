@@ -10,3 +10,5 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('About', []);
 })->name('about');
+
+require __DIR__.'/auth.php';
