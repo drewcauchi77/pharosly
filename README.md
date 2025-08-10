@@ -16,17 +16,20 @@ cp .env.example .env
 # 3) Generate app key
 php artisan key:generate
 
-# 4) Run database migrations + seeders
+# 4) Create the sqlite file
+New-Item database/database.sqlite
+
+# 5) Run database migrations + seeders
 php artisan migrate:fresh --seed
 
-# 5) Install JS deps
+# 6) Install JS deps
 npm install
 
-# 6) Start Vite in watch mode (one terminal)
+# 7) Start Vite in watch mode (one terminal)
 npm run dev
 
-# 7) Start the PHP server (second terminal)
-php -S 0.0.0.0:8000 -t public
+# 8) Start the PHP server (second terminal)
+php -S 0.0.0.0:80 -t public
 # (Port 80 usually needs sudo; 8000 is safer for local dev.)
 
 # Open the app
