@@ -4,6 +4,11 @@ import {useForm} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import Header from "@/Components/Forms/Header.vue";
 import Loading from "@/Components/Icons/Loading.vue";
+import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+
+defineProps({
+    errors: Object
+});
 
 const form = useForm({
     email: '',
@@ -29,6 +34,7 @@ const submit = () => {
                         type="email"
                         placeholder="john.doe@gmail.com"
                         icon="envelope"
+                        :isRequired="true"
                     />
 
                     <InputField
@@ -37,6 +43,7 @@ const submit = () => {
                         type="password"
                         placeholder="••••••••"
                         icon="lock"
+                        :isRequired="true"
                     />
                 </div>
 
@@ -60,6 +67,8 @@ const submit = () => {
                         </a>
                     </div>
                 </div>
+
+                <ErrorMessages :errors="errors" />
 
                 <PrimaryButton type="submit" :disabled="form.processing">
                     <span v-if="form.processing" class="inline-flex items-center">

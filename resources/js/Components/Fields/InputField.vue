@@ -4,6 +4,7 @@ const model = defineModel();
 defineProps({
     label: String,
     placeholder: String,
+    isRequired: Boolean,
     type: {
         type: String,
         default: 'text'
@@ -29,6 +30,7 @@ defineProps({
             </div>
 
             <input
+                :required="isRequired"
                 :id="label"
                 :type="type"
                 :name="label"
@@ -38,7 +40,7 @@ defineProps({
                 :aria-describedby="`${label}-description`"
             />
         </div>
-        
+
         <div :id="`${label}-description`" class="sr-only">
             {{ label }} input field
         </div>
