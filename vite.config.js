@@ -12,7 +12,15 @@ export default defineConfig({
             refresh: true,
         }),
         vue(),
-        tailwindcss(),
+        tailwindcss({
+            theme: {
+                extend: {
+                    fontFamily: {
+                        Arimo: ['Arimo', 'sans-serif']
+                    }
+                },
+            },
+        }),
     ],
     resolve: {
         alias: {
