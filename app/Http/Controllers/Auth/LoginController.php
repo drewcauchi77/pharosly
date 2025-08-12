@@ -3,20 +3,21 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginUserRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /**
-     * Show the login screen.
+     * Show the login form.
      *
      * @return Response
      */
-    public function show(): Response
+    public function create(): Response
     {
         return Inertia::render('Auth/Login');
     }
@@ -24,20 +25,14 @@ class AuthController extends Controller
     /**
      * Login the user.
      *
-     * @param Request $request
+     * @param LoginUserRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(LoginUserRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials))
+        if (Auth::attempt($request->validated()))
         {
             $request->session()->regenerate();
-
             return redirect()->route('home');
         }
 
@@ -59,6 +54,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.show');
+        return redirect()->route('login.create');
     }
 }

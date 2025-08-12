@@ -1,33 +1,46 @@
 <script setup>
-import InputField from "@/Components/Fields/InputField.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import Header from "@/Components/Forms/Header.vue";
 import Loading from "@/Components/Icons/Loading.vue";
+import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
+import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import Header from "@/Components/Forms/Header.vue";
+import { useForm } from "@inertiajs/vue3";
 
 defineProps({
     errors: Object
 });
 
 const form = useForm({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    password_confirmation: ''
 });
 
 const submit = () => {
-    form.post(route('login.store'));
+    form.post(route('register.store'), {
+        onFinish: () => form.reset('password', 'password_confirmation')
+    });
 };
 </script>
 
 <template>
-    <Head title="Login" />
+    <Head title="Register" />
     <div class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <Header title="Sign in" description="Welcome back! Please enter your details." />
+            <Header title="Sign up" description="Create an account by entering the below details." />
 
             <form @submit.prevent="submit" class="mt-8 space-y-6 bg-white rounded-xl shadow-lg p-8">
                 <div class="space-y-4">
+                    <InputField
+                        v-model="form.name"
+                        label="Name"
+                        type="text"
+                        placeholder="John Doe"
+                        icon="user"
+                        :isRequired="true"
+                    />
+
                     <InputField
                         v-model="form.email"
                         label="Email"
@@ -45,27 +58,15 @@ const submit = () => {
                         icon="lock"
                         :isRequired="true"
                     />
-                </div>
 
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input
-                            id="remember-me"
-                            name="remember-me"
-                            type="checkbox"
-                            class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                        >
-
-                        <label for="remember-me" class="ml-2 block text-sm text-slate-700">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                            Forgot your password?
-                        </a>
-                    </div>
+                    <InputField
+                        v-model="form.password_confirmation"
+                        label="Confirm Password"
+                        type="password"
+                        placeholder="••••••••"
+                        icon="lock"
+                        :isRequired="true"
+                    />
                 </div>
 
                 <ErrorMessages :errors="errors" />
@@ -73,17 +74,17 @@ const submit = () => {
                 <PrimaryButton type="submit" :disabled="form.processing">
                     <span v-if="form.processing" class="inline-flex items-center">
                         <Loading />
-                        Signing in...
+                        Signing up...
                     </span>
 
-                    <span v-else>Sign in</span>
+                    <span v-else>Sign up</span>
                 </PrimaryButton>
 
                 <div class="text-center">
                     <p class="text-sm text-slate-600">
-                        Don't have an account?
-                        <Link :href="route('register.create')" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                            Sign up
+                        Already have an account?
+                        <Link :href="route('login.create')" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
+                            Sign in
                         </Link>
                     </p>
                 </div>
