@@ -62,7 +62,7 @@ const submit = () => {
                     </label>
                 </div>
 
-                <LinkItem route-name="register.create" class="text-right">
+                <LinkItem route-name="forgot-password.create" class="text-right">
                     Forgot your password?
                 </LinkItem>
             </div>
