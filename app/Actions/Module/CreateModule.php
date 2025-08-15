@@ -7,7 +7,7 @@ use App\Models\Module;
 final class CreateModule
 {
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @return Module
      */
     public function handle(array $data): Module

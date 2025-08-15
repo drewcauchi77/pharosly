@@ -1,10 +1,11 @@
 <script setup>
-import Loading from "@/Components/Icons/Loading.vue";
-import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import FormTitle from "@/Components/Forms/FormTitle.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import { useForm } from "@inertiajs/vue3";
+import LinkItem from "@/Components/Elements/LinkItem.vue";
 
 defineProps({
     errors: Object
@@ -26,69 +27,68 @@ const submit = () => {
 
 <template>
     <Head title="Register" />
-    <div class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <FormTitle title="Sign up" description="Create an account by entering the below details." />
 
-            <form @submit.prevent="submit" class="mt-8 space-y-6 bg-white rounded-xl shadow-lg p-8">
-                <div class="space-y-4">
-                    <InputField
-                        v-model="form.name"
-                        label="Name"
-                        type="text"
-                        placeholder="John Doe"
-                        icon="user"
-                        :isRequired="true"
-                    />
+    <AuthLayout>
+        <FormTitle title="Join Us!" description="Sign up to get started with Pharosly." />
 
-                    <InputField
-                        v-model="form.email"
-                        label="Email"
-                        type="email"
-                        placeholder="john.doe@gmail.com"
-                        icon="envelope"
-                        :isRequired="true"
-                    />
+        <form @submit.prevent="submit">
+            <div class="space-y-4">
+                <InputField
+                    v-model="form.name"
+                    label="Name"
+                    type="text"
+                    placeholder="John Doe"
+                    icon="user"
+                    :isRequired="true"
+                />
 
-                    <InputField
-                        v-model="form.password"
-                        label="Password"
-                        type="password"
-                        placeholder="••••••••"
-                        icon="lock"
-                        :isRequired="true"
-                    />
+                <InputField
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                    placeholder="john.doe@gmail.com"
+                    icon="envelope"
+                    :isRequired="true"
+                />
 
-                    <InputField
-                        v-model="form.password_confirmation"
-                        label="Confirm Password"
-                        type="password"
-                        placeholder="••••••••"
-                        icon="lock"
-                        :isRequired="true"
-                    />
-                </div>
+                <InputField
+                    v-model="form.password"
+                    label="Password"
+                    type="password"
+                    placeholder="••••••••"
+                    icon="lock"
+                    :isRequired="true"
+                />
 
-                <ErrorMessages :errors="errors" />
+                <InputField
+                    v-model="form.password_confirmation"
+                    label="Confirm Password"
+                    type="password"
+                    placeholder="••••••••"
+                    icon="lock"
+                    :isRequired="true"
+                />
+            </div>
 
-                <PrimaryButton type="submit" :disabled="form.processing">
-                    <span v-if="form.processing" class="inline-flex items-center">
-                        <Loading />
-                        Signing up...
-                    </span>
+            <ErrorMessages :errors="errors" />
 
-                    <span v-else>Sign up</span>
-                </PrimaryButton>
+            <SubmitButton :is-disabled="form.processing">
+                <template v-slot:disable>
+                    Signing up...
+                </template>
+                <template v-slot:able>
+                    Sign up
+                </template>
+            </SubmitButton>
 
-                <div class="text-center">
-                    <p class="text-sm text-slate-600">
-                        Already have an account?
-                        <Link :href="route('login.create')" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                            Sign in
-                        </Link>
-                    </p>
-                </div>
-            </form>
-        </div>
-    </div>
+            <div class="text-center">
+                <p class="text-sm text-slate-600">
+                    Already have an account?
+                    <LinkItem route-name="login.create">
+                        Sign in
+                    </LinkItem>
+                </p>
+            </div>
+        </form>
+    </AuthLayout>
 </template>
