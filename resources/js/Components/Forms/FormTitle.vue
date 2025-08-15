@@ -7,10 +7,10 @@ defineProps({
 
 <template>
     <div class="text-center">
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-slate-900">
+        <h2 class="text-primary text-2xl font-bold mb-2">
             {{ title }}
         </h2>
-        <p class="mt-2 text-sm text-slate-600">
+        <p class="text-alternate text-sm mb-4">
             {{ description }}
         </p>
     </div>

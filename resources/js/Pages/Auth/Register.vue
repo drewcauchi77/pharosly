@@ -3,7 +3,7 @@ import Loading from "@/Components/Icons/Loading.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
-import Header from "@/Components/Forms/Header.vue";
+import FormTitle from "@/Components/Forms/FormTitle.vue";
 import { useForm } from "@inertiajs/vue3";
 
 defineProps({
@@ -28,7 +28,7 @@ const submit = () => {
     <Head title="Register" />
     <div class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <Header title="Sign up" description="Create an account by entering the below details." />
+            <FormTitle title="Sign up" description="Create an account by entering the below details." />
 
             <form @submit.prevent="submit" class="mt-8 space-y-6 bg-white rounded-xl shadow-lg p-8">
                 <div class="space-y-4">

@@ -1,10 +1,11 @@
 <script setup>
 import InputField from "@/Components/Fields/InputField.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import Header from "@/Components/Forms/Header.vue";
-import Loading from "@/Components/Icons/Loading.vue";
+import FormTitle from "@/Components/Forms/FormTitle.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import LinkItem from "@/Components/Elements/LinkItem.vue";
+import SubmitButton from "@/Components/Forms/SubmitButton.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import { useForm } from "@inertiajs/vue3";
 
 defineProps({
     errors: Object
@@ -23,72 +24,68 @@ const submit = () => {
 <template>
     <Head title="Login" />
 
-    <div class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <Header title="Sign in" description="Welcome back! Please enter your details." />
+    <AuthLayout>
+        <FormTitle title="Welcome Back!" description="Sign in to continue to Pharosly." />
 
-            <form @submit.prevent="submit" class="mt-8 space-y-6 bg-white rounded-xl shadow-lg p-8">
-                <div class="space-y-4">
-                    <InputField
-                        v-model="form.email"
-                        label="Email"
-                        type="email"
-                        placeholder="john.doe@gmail.com"
-                        icon="envelope"
-                        :isRequired="true"
-                    />
+        <form @submit.prevent="submit">
+            <div class="space-y-4">
+                <InputField
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                    placeholder="john.doe@gmail.com"
+                    icon="envelope"
+                    :isRequired="true"
+                />
 
-                    <InputField
-                        v-model="form.password"
-                        label="Password"
-                        type="password"
-                        placeholder="••••••••"
-                        icon="lock"
-                        :isRequired="true"
-                    />
+                <InputField
+                    v-model="form.password"
+                    label="Password"
+                    type="password"
+                    placeholder="••••••••"
+                    icon="lock"
+                    :isRequired="true"
+                />
+            </div>
+
+            <div class="flex items-center justify-between mb-5 space-x-4">
+                <div class="flex items-center">
+                    <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        class="h-4 w-4 rounded-sm border-slate-300 text-primary focus:ring-2 focus:ring-offset-1 focus:ring-primary"
+                    >
+
+                    <label for="remember-me" class="ml-2 block text-sm text-text">
+                        Remember me
+                    </label>
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input
-                            id="remember-me"
-                            name="remember-me"
-                            type="checkbox"
-                            class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                        >
+                <LinkItem route-name="register.create" class="text-right">
+                    Forgot your password?
+                </LinkItem>
+            </div>
 
-                        <label for="remember-me" class="ml-2 block text-sm text-slate-700">
-                            Remember me
-                        </label>
-                    </div>
+            <ErrorMessages :errors="errors" />
 
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
+            <SubmitButton :is-disabled="form.processing">
+                <template v-slot:disable>
+                    Signing in...
+                </template>
+                <template v-slot:able>
+                    Sign in
+                </template>
+            </SubmitButton>
 
-                <ErrorMessages :errors="errors" />
-
-                <PrimaryButton type="submit" :disabled="form.processing">
-                    <span v-if="form.processing" class="inline-flex items-center">
-                        <Loading />
-                        Signing in...
-                    </span>
-
-                    <span v-else>Sign in</span>
-                </PrimaryButton>
-
-                <div class="text-center">
-                    <p class="text-sm text-slate-600">
-                        Don't have an account?
-                        <Link :href="route('register.create')" class="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200">
-                            Sign up
-                        </Link>
-                    </p>
-                </div>
-            </form>
-        </div>
-    </div>
+            <div class="text-center">
+                <p class="text-sm">
+                    Don't have an account?
+                    <LinkItem route-name="register.create">
+                        Sign up
+                    </LinkItem>
+                </p>
+            </div>
+        </form>
+    </AuthLayout>
 </template>

@@ -16,7 +16,7 @@ export default defineConfig({
             theme: {
                 extend: {
                     fontFamily: {
-                        Arimo: ['Arimo', 'sans-serif']
+                        Gantari: ['Gantari', 'sans-serif']
                     }
                 },
             },
