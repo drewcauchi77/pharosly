@@ -1,16 +1,16 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import FormTitle from "@/Components/Forms/FormTitle.vue";
-import { useForm } from "@inertiajs/vue3";
 import InputField from "@/Components/Fields/InputField.vue";
-import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import Loading from "@/Components/Icons/Loading.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
+import { useForm } from "@inertiajs/vue3";
+import StatusMessages from "@/Components/Elements/StatusMessages.vue";
 
 defineProps({
-    errors: Object
+    errors: Object,
+    status: String
 });
 
 const form = useForm({
@@ -18,7 +18,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('forgot-password.store'));
+    form.post(route('password.email'));
 };
 </script>
 
@@ -41,6 +41,8 @@ const submit = () => {
             </div>
 
             <ErrorMessages :errors="errors" />
+
+            <StatusMessages :status="status" />
 
             <SubmitButton :is-disabled="form.processing">
                 <template v-slot:disable>
