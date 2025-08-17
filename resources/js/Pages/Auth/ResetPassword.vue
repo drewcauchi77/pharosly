@@ -37,6 +37,7 @@ const submit = () => {
                 <InputField
                     v-model="form.password"
                     label="Password"
+                    id="password"
                     type="password"
                     placeholder="••••••••"
                     icon="lock"
@@ -46,6 +47,7 @@ const submit = () => {
                 <InputField
                     v-model="form.password_confirmation"
                     label="Confirm Password"
+                    id="confirm-password"
                     type="password"
                     placeholder="••••••••"
                     icon="lock"

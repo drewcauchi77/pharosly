@@ -30,7 +30,7 @@ class LoginController extends Controller
      */
     public function store(LoginUserRequest $request): RedirectResponse
     {
-        if (Auth::attempt($request->validated()))
+        if (Auth::attempt($request->validated(), $request->boolean('remember')))
         {
             $request->session()->regenerate();
             return redirect()->route('home');
@@ -38,7 +38,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ]);
+        ])->onlyInput('email');
     }
 
     /**

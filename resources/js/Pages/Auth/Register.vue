@@ -1,11 +1,11 @@
 <script setup>
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import FormTitle from "@/Components/Forms/FormTitle.vue";
-import AuthLayout from "@/Layouts/AuthLayout.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
-import { useForm } from "@inertiajs/vue3";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
+import { useForm } from "@inertiajs/vue3";
 
 defineProps({
     errors: Object
@@ -36,6 +36,7 @@ const submit = () => {
                 <InputField
                     v-model="form.name"
                     label="Name"
+                    id="name"
                     type="text"
                     placeholder="John Doe"
                     icon="user"
@@ -45,6 +46,7 @@ const submit = () => {
                 <InputField
                     v-model="form.email"
                     label="Email"
+                    id="email"
                     type="email"
                     placeholder="john.doe@gmail.com"
                     icon="envelope"
@@ -54,6 +56,7 @@ const submit = () => {
                 <InputField
                     v-model="form.password"
                     label="Password"
+                    id="password"
                     type="password"
                     placeholder="••••••••"
                     icon="lock"
@@ -63,6 +66,7 @@ const submit = () => {
                 <InputField
                     v-model="form.password_confirmation"
                     label="Confirm Password"
+                    id="confirm-password"
                     type="password"
                     placeholder="••••••••"
                     icon="lock"

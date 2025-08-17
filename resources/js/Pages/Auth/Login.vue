@@ -1,10 +1,11 @@
 <script setup>
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import FormTitle from "@/Components/Forms/FormTitle.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
-import AuthLayout from "@/Layouts/AuthLayout.vue";
+import CheckboxField from "@/Components/Fields/CheckboxField.vue";
 import { useForm } from "@inertiajs/vue3";
 
 defineProps({
@@ -13,11 +14,14 @@ defineProps({
 
 const form = useForm({
     email: '',
-    password: ''
+    password: '',
+    remember: false
 });
 
 const submit = () => {
-    form.post(route('login.store'));
+    form.post(route('login.store'), {
+        onFinish: () => form.reset('password')
+    });
 };
 </script>
 
@@ -32,6 +36,7 @@ const submit = () => {
                 <InputField
                     v-model="form.email"
                     label="Email"
+                    id="email"
                     type="email"
                     placeholder="john.doe@gmail.com"
                     icon="envelope"
@@ -41,6 +46,7 @@ const submit = () => {
                 <InputField
                     v-model="form.password"
                     label="Password"
+                    id="password"
                     type="password"
                     placeholder="••••••••"
                     icon="lock"
@@ -49,18 +55,11 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-between mb-5 space-x-4">
-                <div class="flex items-center">
-                    <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        class="h-4 w-4 rounded-sm border-slate-300 text-primary focus:ring-2 focus:ring-offset-1 focus:ring-primary"
-                    >
-
-                    <label for="remember-me" class="ml-2 block text-sm text-text">
-                        Remember me
-                    </label>
-                </div>
+                <CheckboxField
+                    v-model="form.remember"
+                    label="Remember me"
+                    id="remember-me"
+                />
 
                 <LinkItem route-name="password.request" class="text-right">
                     Forgot your password?
