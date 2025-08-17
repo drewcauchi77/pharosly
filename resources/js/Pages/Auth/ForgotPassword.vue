@@ -54,7 +54,7 @@ const submit = () => {
                 </template>
             </SubmitButton>
 
-            <LinkItem route-name="login.create" class="block text-center">
+            <LinkItem route-name="login" class="block text-center">
                 Back to login
             </LinkItem>
         </form>

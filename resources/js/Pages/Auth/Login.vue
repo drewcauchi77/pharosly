@@ -19,7 +19,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('login.store'), {
+    form.post(route('login'), {
         onFinish: () => form.reset('password')
     });
 };
@@ -80,7 +80,7 @@ const submit = () => {
             <div class="text-center">
                 <p class="text-sm">
                     Don't have an account?
-                    <LinkItem route-name="register.create">
+                    <LinkItem route-name="register">
                         Sign up
                     </LinkItem>
                 </p>
