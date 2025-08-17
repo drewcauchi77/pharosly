@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\Auth\ResetPasswordAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
@@ -18,6 +20,7 @@ class ResetPasswordController extends Controller
     /**
      * Show the reset password form.
      *
+     * @param Request $request
      * @return Response
      */
     public function create(Request $request): Response
@@ -28,29 +31,23 @@ class ResetPasswordController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    /**
+     * Resetting the password through the email and token.
+     *
+     * @param ResetPasswordRequest $request
+     * @param ResetPasswordAction $action
+     * @return RedirectResponse
+     */
+    public function store(ResetPasswordRequest $request, ResetPasswordAction $action): RedirectResponse
     {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-        ]);
+        $request->validated();
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
-
-                $user->save();
-
-                event(new PasswordReset($user));
-            }
+        $status = $action->handle(
+            $request->only('email', 'password', 'password_confirmation', 'token')
         );
 
         return $status === Password::PasswordReset
             ? redirect()->route('login.create')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            : redirect()->back()->withErrors(['email' => [__($status)]]);
     }
 }

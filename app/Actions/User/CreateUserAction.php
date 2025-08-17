@@ -4,7 +4,7 @@ namespace App\Actions\User;
 
 use App\Models\User;
 
-final class CreateUser
+final class CreateUserAction
 {
     /**
      * Handles user creation.

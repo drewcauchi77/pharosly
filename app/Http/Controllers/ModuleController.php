@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Module\CreateModule;
+use App\Actions\Module\CreateModuleAction;
 use App\Http\Requests\Module\StoreModuleRequest;
 use App\Http\Requests\Module\UpdateModuleRequest;
 use App\Models\Module;
@@ -31,17 +31,17 @@ class ModuleController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Module/CreateModule');
+        return Inertia::render('Module/CreateModuleAction');
     }
 
     /**
      * Store a newly created module in storage.
      *
      * @param StoreModuleRequest $request
-     * @param CreateModule $action
+     * @param CreateModuleAction $action
      * @return RedirectResponse
      */
-    public function store(StoreModuleRequest $request, CreateModule $action): RedirectResponse
+    public function store(StoreModuleRequest $request, CreateModuleAction $action): RedirectResponse
     {
         $module = $action->handle($request->validated());
         return redirect()->route('modules.show', $module);

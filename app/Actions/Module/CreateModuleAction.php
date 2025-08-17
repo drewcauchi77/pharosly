@@ -4,7 +4,7 @@ namespace App\Actions\Module;
 
 use App\Models\Module;
 
-final class CreateModule
+final class CreateModuleAction
 {
     /**
      * @param array<mixed> $data
