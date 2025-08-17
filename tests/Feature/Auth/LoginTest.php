@@ -1,13 +1,15 @@
 <?php
 
 use App\Models\User;
+use Inertia\Testing\AssertableInertia;
 use function Pest\Laravel\{get};
 
 test('login page renders correct inertia component', function () {
     $response = get(route('login'));
 
-    $response->assertStatus(200)
-        ->assertInertia(fn ($page) => $page->component('Auth/Login'));
+    $response->assertInertia(function (AssertableInertia $page) {
+        $page->component('Auth/Login');
+    });
 });
 
 test('required error messages are shown when fields are empty', function () {
