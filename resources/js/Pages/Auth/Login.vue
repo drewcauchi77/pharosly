@@ -1,7 +1,7 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
-import FormTitle from "@/Components/Forms/FormTitle.vue";
+import PageTitle from "@/Components/Elements/PageTitle.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
@@ -29,7 +29,7 @@ const submit = () => {
     <Head title="Login" />
 
     <AuthLayout>
-        <FormTitle title="Welcome Back!" description="Sign in to continue to Pharosly." />
+        <PageTitle title="Welcome Back!" description="Sign in to continue to Pharosly." />
 
         <form @submit.prevent="submit">
             <div class="space-y-4">

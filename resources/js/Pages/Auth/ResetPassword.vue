@@ -1,6 +1,6 @@
 <script setup>
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
-import FormTitle from "@/Components/Forms/FormTitle.vue";
+import PageTitle from "@/Components/Elements/PageTitle.vue";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
@@ -30,7 +30,7 @@ const submit = () => {
     <Head title="Reset Password" />
 
     <AuthLayout>
-        <FormTitle title="Reset password!" description="Enter your new password here." />
+        <PageTitle title="Reset password!" description="Enter your new password here." />
 
         <form @submit.prevent="submit">
             <div class="space-y-4">

@@ -1,6 +1,6 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import FormTitle from "@/Components/Forms/FormTitle.vue";
+import PageTitle from "@/Components/Elements/PageTitle.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
@@ -26,7 +26,7 @@ const submit = () => {
     <Head title="Forgot Password" />
 
     <AuthLayout>
-        <FormTitle title="No Problem!" description="Enter your email and you will receive a new password." />
+        <PageTitle title="No Problem!" description="Enter your email and you will receive a new password." />
 
         <form @submit.prevent="submit">
             <div class="space-y-4">

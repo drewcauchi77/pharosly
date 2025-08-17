@@ -7,6 +7,7 @@ use App\Http\Requests\Module\StoreModuleRequest;
 use App\Http\Requests\Module\UpdateModuleRequest;
 use App\Models\Module;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,8 +20,12 @@ class ModuleController extends Controller
      */
     public function index(): Response
     {
+        $modules = Module::query()
+            ->select('id', 'title', DB::raw("substr(description, 1, 60) || '...' as description"), 'updated_at')
+            ->paginate(15);
+
         return Inertia::render('Module/ModuleList', [
-            'modules' => Module::query()->paginate(10)
+            'modules' => $modules
         ]);
     }
 

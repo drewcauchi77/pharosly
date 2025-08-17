@@ -2,7 +2,7 @@
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
-import FormTitle from "@/Components/Forms/FormTitle.vue";
+import PageTitle from "@/Components/Elements/PageTitle.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import { useForm } from "@inertiajs/vue3";
@@ -29,7 +29,7 @@ const submit = () => {
     <Head title="Register" />
 
     <AuthLayout>
-        <FormTitle title="Join Us!" description="Sign up to get started with Pharosly." />
+        <PageTitle title="Join Us!" description="Sign up to get started with Pharosly." />
 
         <form @submit.prevent="submit">
             <div class="space-y-4">
