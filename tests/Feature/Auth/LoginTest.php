@@ -1,84 +1,103 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Testing\AssertableInertia;
-use function Pest\Laravel\{get};
+use function Pest\Laravel\{from, get};
 
-test('login page renders correct inertia component', function () {
-    $response = get(route('login'));
-
-    $response->assertInertia(function (AssertableInertia $page) {
-        $page->component('Auth/Login');
+describe('Rendering', function() {
+    test('login page renders the correct Inertia component', function () {
+        get(route('login'))
+            ->assertInertia(function (AssertableInertia $page) {
+                $page->component('Auth/Login');
+            });
     });
 });
 
-test('required error messages are shown when fields are empty', function () {
-    $this->from(route('login'))
-        ->post(route('login'), [
-            'email' => '',
-            'password' => '',
-        ])
-        ->assertRedirect(route('login'));
-
-    $this->assertGuest();
-
-    $this->get(route('login'))
-        ->assertSee('The email field is required.')
-        ->assertSee('The password field is required.');
-});
-
-test('user can login successfully if account exists and credentials are correct', function () {
-    $user = User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => bcrypt('password')
-    ]);
-
-    $response = $this->from(route('login'))
-        ->post(route('login'), [
+describe('Form', function() {
+    test('user can login successfully if account exists and credentials are correct', function () {
+        User::factory()->create([
             'email' => 'test@example.com',
-            'password' => 'password',
+            'password' => bcrypt('password')
         ]);
 
-    $this->assertAuthenticatedAs($user);
+        from(route('login'))
+            ->post(route('login'), [
+                'email' => 'test@example.com',
+                'password' => 'password',
+            ])
+            ->assertRedirect(route('home'))
+            ->assertSessionDoesntHaveErrors();
 
-    $response->assertRedirect(route('home'))
-        ->assertSessionHasNoErrors();
-});
+        expect(Auth::check())->toBeTrue()
+            ->and(Auth::id())->toBe(1);
+    });
 
-test('user cannot login with a non-existing email', function () {
-    User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => bcrypt('password'),
-    ]);
+    test('user cannot login if account does not exist', function () {
+        from(route('login'))
+            ->post(route('login'), [
+                'email' => 'wrong-email@example.com',
+                'password' => 'password',
+            ])
+            ->assertRedirect(route('login'));
 
-    $this->from(route('login'))
-        ->post(route('login'), [
-            'email' => 'wrong-email@example.com',
-            'password' => 'password',
-        ])
-        ->assertRedirect(route('login'));
+        expect(Auth::check())->toBeFalse();
 
-    $this->assertGuest();
+        get(route('login'))
+            ->assertSee('The provided credentials do not match our records.');
+    });
 
-    $this->get(route('login'))
-        ->assertSee('The provided credentials do not match our records.');
-});
-
-test('user cannot login with an incorrect password', function () {
-    User::factory()->create([
-        'email' => 'test@example.com',
-        'password' => bcrypt('password'),
-    ]);
-
-    $this->from(route('login'))
-        ->post(route('login'), [
+    test('user cannot login if password is incorrect', function () {
+        User::factory()->create([
             'email' => 'test@example.com',
-            'password' => 'wrong-password',
-        ])
-        ->assertRedirect(route('login'));
+            'password' => bcrypt('password'),
+        ]);
 
-    $this->assertGuest();
+        from(route('login'))
+            ->post(route('login'), [
+                'email' => 'test@example.com',
+                'password' => 'wrong-password',
+            ])
+            ->assertRedirect(route('login'));
 
-    $this->get(route('login'))
-        ->assertSee('The provided credentials do not match our records.');
+        expect(Auth::check())->toBeFalse();
+
+        get(route('login'))
+            ->assertSee('The provided credentials do not match our records.');
+    });
+
+    test('required error messages are shown if credentials are not provided', function () {
+        from(route('login'))
+            ->post(route('login'), [
+                'email' => '',
+                'password' => '',
+            ])
+            ->assertRedirect(route('login'));
+
+        expect(Auth::check())->toBeFalse();
+
+       get(route('login'))
+            ->assertSee('The email field is required.')
+            ->assertSee('The password field is required.');
+    });
+
+    test('remember me token is created when checkbox is ticked', function () {
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'password' => bcrypt('password')
+        ]);
+
+        from(route('login'))
+            ->post(route('login'), [
+                'email' => 'test@example.com',
+                'password' => 'password',
+                'remember' => true,
+            ])
+            ->assertRedirect(route('home'))
+            ->assertSessionDoesntHaveErrors();
+
+        $user->refresh();
+
+        expect(Auth::user()->getRememberToken())->not->toBeNull();
+    });
 });

@@ -16,15 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('video_link');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('modules');
     }
 };
