@@ -27,9 +27,9 @@ class Module extends Model
     /**
      * Module should have only 1 user.
      *
-     * @return BelongsTo
+     * @return BelongsTo<User, $this>
      */
-    public function users(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

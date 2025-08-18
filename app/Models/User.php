@@ -51,7 +51,7 @@ class User extends Authenticatable
     /**
      * User can have multiple modules
      *
-     * @return BelongsToMany
+     * @return BelongsToMany<Module, $this>
      */
     public function modules(): BelongsToMany
     {
