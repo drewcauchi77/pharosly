@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Module;
 use App\Models\User;
+use App\Models\Workspace;
+use Database\Factories\WorkspaceFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,10 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
 
-        Module::factory(500)->create([
-            'user_id' => fn() => rand(1, 10),
-        ]);
+        foreach ($users as $user)
+        {
+            $workspace = Workspace::factory()->for($user)->create();
+
+            Module::factory()
+                ->count(70)
+                ->for($workspace)
+                ->create();
+        }
     }
 }

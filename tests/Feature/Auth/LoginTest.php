@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Testing\AssertableInertia;
 use function Pest\Laravel\{from, get};
 
-describe('Rendering', function() {
+describe('Component', function() {
     test('login page renders the correct Inertia component', function () {
         get(route('login'))
             ->assertInertia(function (AssertableInertia $page) {

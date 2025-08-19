@@ -12,8 +12,8 @@ defineProps({
 });
 
 const form = useForm({
-    name: '',
     email: '',
+    workspace: '',
     password: '',
     password_confirmation: ''
 });
@@ -34,22 +34,22 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div class="space-y-4">
                 <InputField
-                    v-model="form.name"
-                    label="Name"
-                    id="name"
-                    type="text"
-                    placeholder="John Doe"
-                    icon="user"
-                    :isRequired="true"
-                />
-
-                <InputField
                     v-model="form.email"
                     label="Email"
                     id="email"
                     type="email"
                     placeholder="john.doe@gmail.com"
                     icon="envelope"
+                    :isRequired="true"
+                />
+
+                <InputField
+                    v-model="form.workspace"
+                    label="Workspace"
+                    id="workspace"
+                    type="text"
+                    placeholder="Acme Space"
+                    icon="briefcase"
                     :isRequired="true"
                 />
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Password;
 use Inertia\Testing\AssertableInertia;
 use function Pest\Laravel\{from, get};
 
-describe('Rendering', function() {
+describe('Component', function() {
     test('register page renders the correct Inertia component', function () {
         get(route('password.request'))
             ->assertInertia(function (AssertableInertia $page) {

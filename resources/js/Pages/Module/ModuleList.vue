@@ -5,7 +5,8 @@ import PageTitle from "@/Components/Elements/PageTitle.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 
 defineProps({
-    modules: Object
+    modules: Object,
+    workspace: String,
 });
 
 const columns = [
@@ -19,7 +20,7 @@ const columns = [
 </script>
 
 <template>
-    {{ console.log(modules) }}
+    {{ console.log(workspace) }}
     <Head title="Modules" />
 <!--    <Link :href="route('modules.create')" class="block mb-8 text-indigo-700">Create Module</Link>-->
 

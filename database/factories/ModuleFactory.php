@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Module;
+use App\Models\Workspace;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class ModuleFactory extends Factory
             'title' => $this->faker->words(3, true),
             'description' => $this->faker->paragraph(),
             'video_link' => $this->faker->url(),
+            'workspace_id' => Workspace::factory(),
         ];
     }
 }

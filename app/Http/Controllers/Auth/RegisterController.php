@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\User\CreateUserAction;
+use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use Illuminate\Http\RedirectResponse;
@@ -26,12 +27,16 @@ class RegisterController extends Controller
      * Create a new user account.
      *
      * @param RegisterUserRequest $request
-     * @param CreateUserAction $action
+     * @param CreateUserAction $userAction
+     * @param CreateWorkspaceAction $workspaceAction
      * @return RedirectResponse
      */
-    public function store(RegisterUserRequest $request, CreateUserAction $action): RedirectResponse
+    public function store(RegisterUserRequest $request, CreateUserAction $userAction, CreateWorkspaceAction $workspaceAction): RedirectResponse
     {
-        Auth::login($action->handle($request->validated()));
+        $user = $userAction->handle($request->validated());
+        $workspaceAction->handle($request->validated(), $user);
+
+        Auth::login($user);
         return redirect()->route('home');
     }
 }

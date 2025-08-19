@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Testing\AssertableInertia;
 use function Pest\Laravel\{from, get};
 
-describe('Rendering', function() {
+describe('Component', function() {
     test('register page renders the correct Inertia component', function () {
         get(route('register'))
             ->assertInertia(function (AssertableInertia $page) {
@@ -18,15 +18,16 @@ describe('Form', function() {
     test('user can register successfully if email does not exist', function () {
         from(route('register'))
             ->post(route('register'), [
-                'name' => 'Test Name',
                 'email' => 'test@example.com',
+                'workspace' => 'My Workspace',
                 'password' => 'password',
                 'password_confirmation' => 'password',
             ])
             ->assertRedirect(route('home'));
 
         expect(Auth::check())->toBeTrue()
-            ->and(Auth::id())->toBe(1);
+            ->and(Auth::id())->toBe(1)
+            ->and(Auth::user()->workspace->id)->ToBe(1);
     });
 
     test('user cannot register if email already exists', function () {
@@ -36,10 +37,7 @@ describe('Form', function() {
 
        from(route('register'))
             ->post(route('register'), [
-                'name' => 'Test Name',
                 'email' => 'test@example.com',
-                'password' => 'password',
-                'password_confirmation' => 'password',
             ])
             ->assertRedirect(route('register'));
 
@@ -50,8 +48,6 @@ describe('Form', function() {
     test('user cannot register if password is not confirmed correctly', function () {
         from(route('register'))
             ->post(route('register'), [
-                'name' => 'Test Name',
-                'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'wrong-password',
             ])
@@ -66,8 +62,8 @@ describe('Form', function() {
     test('required error messages are shown when fields are empty', function () {
         from(route('register'))
             ->post(route('register'), [
-                'name' => '',
                 'email' => '',
+                'workspace' => '',
                 'password' => '',
                 'password_confirmation' => '',
             ])
@@ -76,7 +72,7 @@ describe('Form', function() {
         expect(Auth::check())->toBeFalse();
 
         get(route('register'))
-            ->assertSee('The name field is required.')
+            ->assertSee('The workspace field is required.')
             ->assertSee('The email field is required.')
             ->assertSee('The password field is required.');
     });

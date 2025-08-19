@@ -6,9 +6,13 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property int $id
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -20,7 +24,6 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -49,12 +52,12 @@ class User extends Authenticatable
     }
 
     /**
-     * User can have multiple modules
+     * User can have 1 workspace.
      *
-     * @return BelongsToMany<Module, $this>
+     * @return HasOne<Workspace, $this>
      */
-    public function modules(): BelongsToMany
+    public function workspace(): HasOne
     {
-        return $this->belongsToMany(Module::class);
+        return $this->hasOne(Workspace::class);
     }
 }
