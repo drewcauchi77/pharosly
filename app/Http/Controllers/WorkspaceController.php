@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\Workspace;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class WorkspaceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the listing of the workspaces.
+     *
+     * @return Response
      */
-    public function index(): void
+    public function index(): Response
     {
-        //
+        return Inertia::render('Workspace/WorkspaceList', [
+            'workspaces' => Workspace::query()
+                ->where('user_id', Auth::user()->id)
+                ->paginate(15)
+        ]);
     }
 
     /**

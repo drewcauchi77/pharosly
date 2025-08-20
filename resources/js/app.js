@@ -1,6 +1,7 @@
 import { createApp, h } from 'vue';
 import { createInertiaApp, Head, Link } from "@inertiajs/vue3";
 import { ZiggyVue } from "ziggy-js";
+import { resolveLayout } from "@/Helpers/helpers.js";
 
 createInertiaApp({
     title: (title) => `${title} | Pharosly`,
@@ -8,9 +9,10 @@ createInertiaApp({
         const pages = import.meta.glob('./Pages/**/*.vue', {
             eager: true
         });
-        let page = pages[`./Pages/${name}.vue`];
 
-        page.default.layout = page.default.layout || null;
+        let page = pages[`./Pages/${name}.vue`];
+        page.default.layout ||= resolveLayout(name);
+
         return page;
     },
     setup({ el, App, props, plugin }) {
@@ -21,4 +23,4 @@ createInertiaApp({
             .component("Link", Link)
             .mount(el)
     },
-})
+});

@@ -23,7 +23,7 @@ describe('Form', function() {
                 'password' => 'password',
                 'password_confirmation' => 'password',
             ])
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('dashboard'));
 
         expect(Auth::check())->toBeTrue()
             ->and(Auth::id())->toBe(1)

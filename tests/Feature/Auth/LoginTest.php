@@ -26,7 +26,7 @@ describe('Form', function() {
                 'email' => 'test@example.com',
                 'password' => 'password',
             ])
-            ->assertRedirect(route('home'))
+            ->assertRedirect(route('dashboard'))
             ->assertSessionDoesntHaveErrors();
 
         expect(Auth::check())->toBeTrue()
@@ -93,7 +93,7 @@ describe('Form', function() {
                 'password' => 'password',
                 'remember' => true,
             ])
-            ->assertRedirect(route('home'))
+            ->assertRedirect(route('dashboard'))
             ->assertSessionDoesntHaveErrors();
 
         $user->refresh();

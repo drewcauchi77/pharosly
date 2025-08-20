@@ -25,38 +25,36 @@ const submit = () => {
 <template>
     <Head title="Forgot Password" />
 
-    <AuthLayout>
-        <PageTitle title="No Problem!" description="Enter your email and you will receive a new password." />
+    <PageTitle title="No Problem!" description="Enter your email and you will receive a new password." />
 
-        <form @submit.prevent="submit">
-            <div class="space-y-4">
-                <InputField
-                    v-model="form.email"
-                    label="Email"
-                    id="email"
-                    type="email"
-                    placeholder="john.doe@example.com"
-                    icon="envelope"
-                    :isRequired="true"
-                />
-            </div>
+    <form @submit.prevent="submit">
+        <div class="space-y-4">
+            <InputField
+                v-model="form.email"
+                label="Email"
+                id="email"
+                type="email"
+                placeholder="john.doe@example.com"
+                icon="envelope"
+                :isRequired="true"
+            />
+        </div>
 
-            <ErrorMessages :errors="errors" />
+        <ErrorMessages :errors="errors" />
 
-            <StatusMessages :status="status" />
+        <StatusMessages :status="status" />
 
-            <SubmitButton :is-disabled="form.processing">
-                <template v-slot:disable>
-                    Sending...
-                </template>
-                <template v-slot:able>
-                    Send
-                </template>
-            </SubmitButton>
+        <SubmitButton :is-disabled="form.processing">
+            <template v-slot:disable>
+                Sending...
+            </template>
+            <template v-slot:able>
+                Send
+            </template>
+        </SubmitButton>
 
-            <LinkItem route-name="login" class="block text-center">
-                Back to login
-            </LinkItem>
-        </form>
-    </AuthLayout>
+        <LinkItem route-name="login" class="block text-center">
+            Back to login
+        </LinkItem>
+    </form>
 </template>

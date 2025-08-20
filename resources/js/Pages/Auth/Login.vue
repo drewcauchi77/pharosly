@@ -1,5 +1,4 @@
 <script setup>
-import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
@@ -28,63 +27,61 @@ const submit = () => {
 <template>
     <Head title="Login" />
 
-    <AuthLayout>
-        <PageTitle title="Welcome Back!" description="Sign in to continue to Pharosly." />
+    <PageTitle title="Welcome Back!" description="Sign in to continue to Pharosly." />
 
-        <form @submit.prevent="submit">
-            <div class="space-y-4">
-                <InputField
-                    v-model="form.email"
-                    label="Email"
-                    id="email"
-                    type="email"
-                    placeholder="john.doe@gmail.com"
-                    icon="envelope"
-                    :isRequired="true"
-                />
+    <form @submit.prevent="submit">
+        <div class="space-y-4">
+            <InputField
+                v-model="form.email"
+                label="Email"
+                id="email"
+                type="email"
+                placeholder="john.doe@gmail.com"
+                icon="envelope"
+                :isRequired="true"
+            />
 
-                <InputField
-                    v-model="form.password"
-                    label="Password"
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    icon="lock"
-                    :isRequired="true"
-                />
-            </div>
+            <InputField
+                v-model="form.password"
+                label="Password"
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                icon="lock"
+                :isRequired="true"
+            />
+        </div>
 
-            <div class="flex items-center justify-between mb-5 space-x-4">
-                <CheckboxField
-                    v-model="form.remember"
-                    label="Remember me"
-                    id="remember-me"
-                />
+        <div class="flex items-center justify-between mb-5 space-x-4">
+            <CheckboxField
+                v-model="form.remember"
+                label="Remember me"
+                id="remember-me"
+            />
 
-                <LinkItem route-name="password.request" class="text-right">
-                    Forgot your password?
+            <LinkItem route-name="password.request" class="text-right">
+                Forgot your password?
+            </LinkItem>
+        </div>
+
+        <ErrorMessages :errors="errors" />
+
+        <SubmitButton :is-disabled="form.processing">
+            <template v-slot:disable>
+                Signing in...
+            </template>
+            <template v-slot:able>
+                Sign in
+            </template>
+        </SubmitButton>
+
+        <div class="text-center">
+            <p class="text-sm">
+                Don't have an account?
+                <LinkItem route-name="register">
+                    Sign up
                 </LinkItem>
-            </div>
-
-            <ErrorMessages :errors="errors" />
-
-            <SubmitButton :is-disabled="form.processing">
-                <template v-slot:disable>
-                    Signing in...
-                </template>
-                <template v-slot:able>
-                    Sign in
-                </template>
-            </SubmitButton>
-
-            <div class="text-center">
-                <p class="text-sm">
-                    Don't have an account?
-                    <LinkItem route-name="register">
-                        Sign up
-                    </LinkItem>
-                </p>
-            </div>
-        </form>
-    </AuthLayout>
+            </p>
+        </div>
+    </form>
 </template>

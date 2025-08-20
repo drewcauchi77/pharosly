@@ -1,7 +1,6 @@
 <script setup>
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
-import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import { useForm } from "@inertiajs/vue3";
@@ -29,42 +28,40 @@ const submit = () => {
 <template>
     <Head title="Reset Password" />
 
-    <AuthLayout>
-        <PageTitle title="Reset password!" description="Enter your new password here." />
+    <PageTitle title="Reset password!" description="Enter your new password here." />
 
-        <form @submit.prevent="submit">
-            <div class="space-y-4">
-                <InputField
-                    v-model="form.password"
-                    label="Password"
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    icon="lock"
-                    :isRequired="true"
-                />
+    <form @submit.prevent="submit">
+        <div class="space-y-4">
+            <InputField
+                v-model="form.password"
+                label="Password"
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                icon="lock"
+                :isRequired="true"
+            />
 
-                <InputField
-                    v-model="form.password_confirmation"
-                    label="Confirm Password"
-                    id="confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    icon="lock"
-                    :isRequired="true"
-                />
-            </div>
+            <InputField
+                v-model="form.password_confirmation"
+                label="Confirm Password"
+                id="confirm-password"
+                type="password"
+                placeholder="••••••••"
+                icon="lock"
+                :isRequired="true"
+            />
+        </div>
 
-            <ErrorMessages :errors="errors" />
+        <ErrorMessages :errors="errors" />
 
-            <SubmitButton :is-disabled="form.processing">
-                <template v-slot:disable>
-                    Resetting password...
-                </template>
-                <template v-slot:able>
-                    Reset
-                </template>
-            </SubmitButton>
-        </form>
-    </AuthLayout>
+        <SubmitButton :is-disabled="form.processing">
+            <template v-slot:disable>
+                Resetting password...
+            </template>
+            <template v-slot:able>
+                Reset
+            </template>
+        </SubmitButton>
+    </form>
 </template>

@@ -48,7 +48,7 @@ function formatValue(value, item, column) {
 
     <tbody v-else>
         <tr>
-            <td :colspan="Math.max(columns.length, 1)" class="p-3">
+            <td :colspan="Math.max(columns.length, 1)" class="p-3 text-center text-sm">
                 <slot name="empty">No data.</slot>
             </td>
         </tr>

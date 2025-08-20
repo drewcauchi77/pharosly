@@ -7,7 +7,9 @@ use App\Http\Requests\Module\StoreModuleRequest;
 use App\Http\Requests\Module\UpdateModuleRequest;
 use App\Models\Module;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -20,8 +22,11 @@ class ModuleController extends Controller
      */
     public function index(): Response
     {
+        Gate::authorize('viewAny', Module::class);
+
         $modules = Module::query()
             ->select('id', 'title', DB::raw("substr(description, 1, 60) || '...' as description"), 'updated_at')
+            ->where('workspace_id', Auth::user()->workspace->id) // session('workspace_id')
             ->paginate(15);
 
         return Inertia::render('Module/ModuleList', [
@@ -60,6 +65,8 @@ class ModuleController extends Controller
      */
     public function show(Module $module): Response
     {
+        Gate::authorize('view', $module);
+
         return Inertia::render('Module/ShowModule', [
             'module' => $module
         ]);

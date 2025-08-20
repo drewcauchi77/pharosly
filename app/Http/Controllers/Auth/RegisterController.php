@@ -37,6 +37,6 @@ class RegisterController extends Controller
         $workspaceAction->handle($request->validated(), $user);
 
         Auth::login($user);
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 }

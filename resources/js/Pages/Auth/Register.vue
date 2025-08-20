@@ -1,5 +1,4 @@
 <script setup>
-import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
@@ -28,71 +27,69 @@ const submit = () => {
 <template>
     <Head title="Register" />
 
-    <AuthLayout>
-        <PageTitle title="Join Us!" description="Sign up to get started with Pharosly." />
+    <PageTitle title="Join Us!" description="Sign up to get started with Pharosly." />
 
-        <form @submit.prevent="submit">
-            <div class="space-y-4">
-                <InputField
-                    v-model="form.email"
-                    label="Email"
-                    id="email"
-                    type="email"
-                    placeholder="john.doe@gmail.com"
-                    icon="envelope"
-                    :isRequired="true"
-                />
+    <form @submit.prevent="submit">
+        <div class="space-y-4">
+            <InputField
+                v-model="form.email"
+                label="Email"
+                id="email"
+                type="email"
+                placeholder="john.doe@gmail.com"
+                icon="envelope"
+                :isRequired="true"
+            />
 
-                <InputField
-                    v-model="form.workspace"
-                    label="Workspace"
-                    id="workspace"
-                    type="text"
-                    placeholder="Acme Space"
-                    icon="briefcase"
-                    :isRequired="true"
-                />
+            <InputField
+                v-model="form.workspace"
+                label="Workspace"
+                id="workspace"
+                type="text"
+                placeholder="Acme Space"
+                icon="briefcase"
+                :isRequired="true"
+            />
 
-                <InputField
-                    v-model="form.password"
-                    label="Password"
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    icon="lock"
-                    :isRequired="true"
-                />
+            <InputField
+                v-model="form.password"
+                label="Password"
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                icon="lock"
+                :isRequired="true"
+            />
 
-                <InputField
-                    v-model="form.password_confirmation"
-                    label="Confirm Password"
-                    id="confirm-password"
-                    type="password"
-                    placeholder="••••••••"
-                    icon="lock"
-                    :isRequired="true"
-                />
-            </div>
+            <InputField
+                v-model="form.password_confirmation"
+                label="Confirm Password"
+                id="confirm-password"
+                type="password"
+                placeholder="••••••••"
+                icon="lock"
+                :isRequired="true"
+            />
+        </div>
 
-            <ErrorMessages :errors="errors" />
+        <ErrorMessages :errors="errors" />
 
-            <SubmitButton :is-disabled="form.processing">
-                <template v-slot:disable>
-                    Signing up...
-                </template>
-                <template v-slot:able>
-                    Sign up
-                </template>
-            </SubmitButton>
+        <SubmitButton :is-disabled="form.processing">
+            <template v-slot:disable>
+                Signing up...
+            </template>
+            <template v-slot:able>
+                Sign up
+            </template>
+        </SubmitButton>
 
-            <div class="text-center">
-                <p class="text-sm text-slate-600">
-                    Already have an account?
-                    <LinkItem route-name="login">
-                        Sign in
-                    </LinkItem>
-                </p>
-            </div>
-        </form>
-    </AuthLayout>
+        <div class="text-center">
+            <p class="text-sm text-slate-600">
+                Already have an account?
+                <LinkItem route-name="login">
+                    Sign in
+                </LinkItem>
+            </p>
+        </div>
+    </form>
 </template>

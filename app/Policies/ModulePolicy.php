@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Module;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ModulePolicy
 {
@@ -13,7 +12,7 @@ class ModulePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->workspace()->exists();
     }
 
     /**
@@ -21,7 +20,7 @@ class ModulePolicy
      */
     public function view(User $user, Module $module): bool
     {
-        return false;
+        return $user->workspace?->id === (int) $module->workspace_id;
     }
 
     /**

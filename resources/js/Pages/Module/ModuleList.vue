@@ -20,7 +20,6 @@ const columns = [
 </script>
 
 <template>
-    {{ console.log(workspace) }}
     <Head title="Modules" />
 <!--    <Link :href="route('modules.create')" class="block mb-8 text-indigo-700">Create Module</Link>-->
 
