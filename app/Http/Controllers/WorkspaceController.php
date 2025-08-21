@@ -52,9 +52,11 @@ class WorkspaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Workspace $workspace): void
+    public function edit(Workspace $workspace): Response
     {
-        //
+        return Inertia::render('Workspace/EditWorkspace', [
+            'workspace' => $workspace
+        ]);
     }
 
     /**

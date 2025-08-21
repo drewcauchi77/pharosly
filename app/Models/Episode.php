@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Database\Factories\ModuleFactory;
+use Database\Factories\EpisodeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Module extends Model
+class Episode extends Model
 {
-    /** @use HasFactory<ModuleFactory> */
+    /** @use HasFactory<EpisodeFactory> */
     use HasFactory;
 
     /**
@@ -25,7 +25,7 @@ class Module extends Model
     ];
 
     /**
-     * Module should have only 1 workspace.
+     * Episode should have only 1 workspace.
      *
      * @return BelongsTo<Workspace, $this>
      */

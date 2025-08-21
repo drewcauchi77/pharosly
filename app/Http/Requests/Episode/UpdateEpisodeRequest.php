@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Module;
+namespace App\Http\Requests\Episode;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateModuleRequest extends FormRequest
+class UpdateEpisodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

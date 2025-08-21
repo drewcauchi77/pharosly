@@ -16,12 +16,12 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('modules.store'));
+    form.post(route('episodes.store'));
 };
 </script>
 
 <template>
-    <Head title="Create Module" />
+    <Head title="Create Episode" />
 
     <div class="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
@@ -31,7 +31,7 @@ const submit = () => {
                         v-model="form.title"
                         label="Title"
                         type="text"
-                        placeholder="New Module Title"
+                        placeholder="New Episode Title"
                         icon="font"
                         :isRequired="true"
                     />

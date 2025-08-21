@@ -14,7 +14,7 @@ import { Link } from "@inertiajs/vue3";
 
             <LinkItem routeName="dashboard">Dashboard</LinkItem><br>
 
-            <LinkItem routeName="modules.index">Modules</LinkItem><br>
+            <LinkItem routeName="episodes.index">Episodes</LinkItem><br>
 
             <Link as="button" method="delete" :href="route('login.destroy')" class="block w-full px-6 py-3 hover:bg-slate-700 text-left">Logout</Link>
 

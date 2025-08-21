@@ -10,7 +10,9 @@ import SideMenu from "@/Components/Menus/SideMenu.vue";
         </div>
 
         <div class="ml-[256px]">
-            <slot />
+            <div class="p-5 max-w-[1680px] mx-auto">
+                <slot />
+            </div>
         </div>
     </main>
 </template>

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Module;
+namespace App\Http\Requests\Episode;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreModuleRequest extends FormRequest
+class StoreEpisodeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

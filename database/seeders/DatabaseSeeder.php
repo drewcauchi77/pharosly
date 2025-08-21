@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Module;
+use App\Models\Episode;
 use App\Models\User;
 use App\Models\Workspace;
 use Database\Factories\WorkspaceFactory;
@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         {
             $workspace = Workspace::factory()->for($user)->create();
 
-            Module::factory()
+            Episode::factory()
                 ->count(70)
                 ->for($workspace)
                 ->create();
