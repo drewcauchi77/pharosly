@@ -12,7 +12,7 @@ class EpisodePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->workspace()->exists();
+        return $user->workspaces()->exists();
     }
 
     /**
@@ -20,7 +20,7 @@ class EpisodePolicy
      */
     public function view(User $user, Episode $episode): bool
     {
-        return $user->workspace?->id === (int) $episode->workspace_id;
+        return $user->workspaces()->whereKey((int) $episode->workspace_id)->exists();
     }
 
     /**

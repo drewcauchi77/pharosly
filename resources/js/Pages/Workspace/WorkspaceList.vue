@@ -40,7 +40,7 @@ const columns = [
             :columns="columns"
         >
             <template #cell-name="{ item }">
-                <div class="flex items-center gap-2.5">
+                <div class="flex items-center gap-3">
                     <div class="relative rounded-full ring-2 ring-offset-1 ring-text bg-white p-0.25">
                         <img :src="item.image" :alt="item.name" class="rounded-full w-10 h-10 bg-gray-400"/>
                     </div>
@@ -65,8 +65,14 @@ const columns = [
                 <span class="text-sm">Labels</span>
             </template>
 
-            <template #cell-actions="{ value }">
-                <span class="text-sm">Actions</span>
+            <template #cell-actions="{ item }">
+                <div class="flex gap-3">
+                    <LinkItem routeName="workspaces.edit" :routeValue="item.id">
+                        <i class="fa-solid fa-pencil"></i>
+                    </LinkItem>
+
+                    <i class="fa-solid fa-trash text-primary cursor-pointer hover:text-primary-hover"></i>
+                </div>
             </template>
 
             <template #empty>

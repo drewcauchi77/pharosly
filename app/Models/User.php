@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -52,12 +50,12 @@ class User extends Authenticatable
     }
 
     /**
-     * User can have 1 workspace.
+     * User can have many workspaces.
      *
-     * @return HasOne<Workspace, $this>
+     * @return HasMany<Workspace, $this>
      */
-    public function workspace(): HasOne
+    public function workspaces(): HasMany
     {
-        return $this->hasOne(Workspace::class);
+        return $this->hasMany(Workspace::class);
     }
 }

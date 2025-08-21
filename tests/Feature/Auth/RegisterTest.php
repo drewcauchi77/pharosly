@@ -27,7 +27,8 @@ describe('Form', function() {
 
         expect(Auth::check())->toBeTrue()
             ->and(Auth::id())->toBe(1)
-            ->and(Auth::user()->workspace->id)->ToBe(1);
+            ->and(Auth::user()->workspaces()->count())->toBe(1)
+            ->and(Auth::user()->workspaces()->first()->id)->toBe(1);
     });
 
     test('user cannot register if email already exists', function () {
