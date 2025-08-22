@@ -26,7 +26,7 @@ class EpisodeController extends Controller
 
         $episodes = Episode::query()
             ->select('id', 'title', DB::raw("substr(description, 1, 60) || '...' as description"), 'updated_at')
-            ->whereIn('workspace_id', Auth::user()->workspaces()->pluck('id')) // session('workspace_id')
+            ->whereIn('workspace_id', Auth::user()->workspaces()->pluck('id'))
             ->paginate(15);
 
         return Inertia::render('Episode/EpisodeList', [

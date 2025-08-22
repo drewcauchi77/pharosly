@@ -3,3 +3,4 @@
 3. Work on navbar to change workspaces (how to save the workspace)
 4. Episode Policies
 5. Improve navbar styling
+6. Cannot delete if last workspace

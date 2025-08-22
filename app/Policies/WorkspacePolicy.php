@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class WorkspacePolicy
 {
@@ -25,7 +26,10 @@ class WorkspacePolicy
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the user can create workspaces.
+     *
+     * @param User $user
+     * @return bool
      */
     public function create(User $user): bool
     {

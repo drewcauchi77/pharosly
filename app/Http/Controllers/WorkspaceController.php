@@ -47,7 +47,6 @@ class WorkspaceController extends Controller
     public function store(StoreWorkspaceRequest $request, CreateWorkspaceAction $workspaceAction): RedirectResponse
     {
         $workspaceAction->handle($request->validated());
-
         return redirect()->route('workspaces.index');
     }
 
