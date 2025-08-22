@@ -3,6 +3,7 @@ import PageTitle from "@/Components/Elements/PageTitle.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
+import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 
 defineProps({
     workspaces: Object
@@ -22,6 +23,8 @@ const columns = [
     <Head title="Workspaces" />
 
     <PageTitle title="Workspaces" description="A list of workspaces that you have created." class="text-left" />
+
+    <LinkItem routeName="workspaces.create">New Workspace</LinkItem>
 
     <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0">
         <thead class="bg-light-blue">
@@ -66,7 +69,11 @@ const columns = [
             </template>
 
             <template #cell-actions="{ item }">
-                <div class="flex gap-3">
+                <div class="flex gap-3 items-center">
+                    <PrimaryButton class="!w-fit">
+                        Open Workspace
+                    </PrimaryButton>
+
                     <LinkItem routeName="workspaces.edit" :routeValue="item.id">
                         <i class="fa-solid fa-pencil"></i>
                     </LinkItem>

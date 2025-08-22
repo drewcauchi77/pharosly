@@ -41,7 +41,7 @@ class Workspace extends Model
      */
     public function getImageAttribute(): string
     {
-        $firstCharacter = $this->name[0];
+        $firstCharacter = strtolower($this->name[0]);
         $integerToUse = is_numeric($firstCharacter) ? ord($firstCharacter) - 21 : ord($firstCharacter) - 96;
 
         return "https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-".$integerToUse.".png";

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\Workspace;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -27,18 +29,26 @@ class WorkspaceController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return Response
      */
-    public function create(): void
+    public function create(): Response
     {
-        //
+        return Inertia::render('Workspace/CreateWorkspace');
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param StoreWorkspaceRequest $request
+     * @param CreateWorkspaceAction $workspaceAction
+     * @return RedirectResponse
      */
-    public function store(StoreWorkspaceRequest $request): void
+    public function store(StoreWorkspaceRequest $request, CreateWorkspaceAction $workspaceAction): RedirectResponse
     {
-        //
+        $workspaceAction->handle($request->validated());
+
+        return redirect()->route('workspaces.index');
     }
 
     /**
