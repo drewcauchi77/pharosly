@@ -11,6 +11,8 @@
 11. Error messages there too
 12. Null checks?
 13. Redirect for 403 messages
+14. TESTS TESTS TESTS with Pest 4!!!
+15. Update ReadMe file with all the requirements
 
 Switching episodes to check
 1. LoginController > store
