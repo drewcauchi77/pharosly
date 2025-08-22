@@ -4,3 +4,17 @@
 4. Episode Policies
 5. Improve navbar styling
 6. Cannot delete if last workspace
+7. Clean the functionality to switch the workspaces
+8. Complete the logic total for episodes and workspace
+9. Make sure policies are working
+10. Add better success messages on the Layout
+11. Error messages there too
+12. Null checks?
+13. Redirect for 403 messages
+
+Switching episodes to check
+1. LoginController > store
+2. LoginController > destroy
+3. RegisterController > store
+4. EpisodeController > index
+5. WorkspaceController > switch 

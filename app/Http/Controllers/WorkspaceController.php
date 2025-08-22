@@ -8,6 +8,7 @@ use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\Workspace;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -82,5 +83,23 @@ class WorkspaceController extends Controller
     public function destroy(Workspace $workspace): void
     {
         //
+    }
+
+    /**
+     * Switch the current session workspace to the provided workspace.
+     * This can be called from the frontend (VueJS) to change context.
+     */
+    public function switch(Request $request, Workspace $workspace): RedirectResponse
+    {
+        // Ensure the authenticated user owns this workspace
+        if ($workspace->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // Store the selected workspace ID in the session
+        $request->session()->put('workspace_id', $workspace->id);
+
+        // Redirect back to previous page or dashboard
+        return redirect()->route('episodes.index')->with('status', 'Workspace switched');
     }
 }

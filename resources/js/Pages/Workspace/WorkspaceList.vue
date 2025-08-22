@@ -4,6 +4,7 @@ import LinkItem from "@/Components/Elements/LinkItem.vue";
 import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
+import { router } from "@inertiajs/vue3";
 
 defineProps({
     workspaces: Object
@@ -17,6 +18,10 @@ const columns = [
     { key: 'labels' },
     { key: 'actions' }
 ];
+
+const switchWorkspace = (episodeId) => {
+    router.post(route('workspaces.switch', episodeId));
+}
 </script>
 
 <template>
@@ -70,7 +75,7 @@ const columns = [
 
             <template #cell-actions="{ item }">
                 <div class="flex gap-3 items-center">
-                    <PrimaryButton class="!w-fit">
+                    <PrimaryButton class="!w-fit" @click="switchWorkspace(item.id)">
                         Open Workspace
                     </PrimaryButton>
 

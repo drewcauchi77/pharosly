@@ -24,13 +24,33 @@ class EpisodeController extends Controller
     {
         Gate::authorize('viewAny', Episode::class);
 
-        $episodes = Episode::query()
-            ->select('id', 'title', DB::raw("substr(description, 1, 60) || '...' as description"), 'updated_at')
-            ->whereIn('workspace_id', Auth::user()->workspaces()->pluck('id'))
-            ->paginate(15);
+        // Determine the current workspace from session; if missing/invalid, fall back to oldest
+        $user = Auth::user();
+        $workspaceId = session('workspace_id');
+
+        // Ensure the session workspace belongs to the user; otherwise pick the oldest
+        $ownsWorkspace = $workspaceId ? $user->workspaces()->where('id', $workspaceId)->exists() : false;
+        if (!$ownsWorkspace) {
+            $workspaceId = $user->workspaces()->oldest()->value('id');
+            if ($workspaceId) {
+                session(['workspace_id' => $workspaceId]);
+            }
+        }
+
+        $query = Episode::query()
+            ->select('id', 'title', DB::raw("substr(description, 1, 60) || '...' as description"), 'updated_at');
+
+        if ($workspaceId) {
+            $query->where('workspace_id', $workspaceId);
+        } else {
+            // No workspace available; ensure empty result set while keeping paginator structure
+            $query->whereRaw('1 = 0');
+        }
+
+        $episodes = $query->paginate(15);
 
         return Inertia::render('Episode/EpisodeList', [
-            'episodes' => $episodes
+            'episodes' => $episodes,
         ]);
     }
 

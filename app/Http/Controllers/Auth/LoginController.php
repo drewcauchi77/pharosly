@@ -33,6 +33,16 @@ class LoginController extends Controller
         if (Auth::attempt($request->validated(), $request->boolean('remember')))
         {
             $request->session()->regenerate();
+
+            // Set current workspace in session to the oldest workspace of the user
+            $oldestWorkspaceId = Auth::user()->workspaces()->oldest()->value('id');
+            if ($oldestWorkspaceId) {
+                $request->session()->put('workspace_id', $oldestWorkspaceId);
+            } else {
+                // Ensure key exists (optional)
+                $request->session()->forget('workspace_id');
+            }
+
             return redirect()->route('dashboard');
         }
 
@@ -51,6 +61,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
+        $request->session()->forget('workspace_id');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

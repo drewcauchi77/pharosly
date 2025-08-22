@@ -37,6 +37,15 @@ class RegisterController extends Controller
         $workspaceAction->handle($request->validated(), $user);
 
         Auth::login($user);
+
+        // Set current workspace in session to the oldest workspace of the user (the one just created)
+        $oldestWorkspaceId = Auth::user()->workspaces()->oldest()->value('id');
+        if ($oldestWorkspaceId) {
+            session(['workspace_id' => $oldestWorkspaceId]);
+        } else {
+            session()->forget('workspace_id');
+        }
+
         return redirect()->route('dashboard');
     }
 }
