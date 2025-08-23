@@ -9,6 +9,7 @@ use App\Models\Workspace;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -42,12 +43,15 @@ class WorkspaceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreWorkspaceRequest $request
-     * @param CreateWorkspaceAction $workspaceAction
+     * @param CreateWorkspaceAction $createWorkspace
      * @return RedirectResponse
      */
-    public function store(StoreWorkspaceRequest $request, CreateWorkspaceAction $workspaceAction): RedirectResponse
+    public function store(
+        StoreWorkspaceRequest $request,
+        CreateWorkspaceAction $createWorkspace
+    ): RedirectResponse
     {
-        $workspaceAction->handle($request->validated());
+        $createWorkspace->handle($request->validated());
         return redirect()->route('workspaces.index');
     }
 
@@ -91,15 +95,9 @@ class WorkspaceController extends Controller
      */
     public function switch(Request $request, Workspace $workspace): RedirectResponse
     {
-        // Ensure the authenticated user owns this workspace
-        if ($workspace->user_id !== Auth::id()) {
-            abort(403);
-        }
+        Gate::authorize('switch', $workspace);
+        $request->session()->put('workspace_id', $workspace->id); // to update this TODO
 
-        // Store the selected workspace ID in the session
-        $request->session()->put('workspace_id', $workspace->id);
-
-        // Redirect back to previous page or dashboard
         return redirect()->route('episodes.index')->with('status', 'Workspace switched');
     }
 }

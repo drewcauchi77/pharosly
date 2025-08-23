@@ -68,12 +68,15 @@ class EpisodeController extends Controller
      * Store a newly created episode in storage.
      *
      * @param StoreEpisodeRequest $request
-     * @param CreateEpisodeAction $action
+     * @param CreateEpisodeAction $createEpisode
      * @return RedirectResponse
      */
-    public function store(StoreEpisodeRequest $request, CreateEpisodeAction $action): RedirectResponse
+    public function store(
+        StoreEpisodeRequest $request,
+        CreateEpisodeAction $createEpisode
+    ): RedirectResponse
     {
-        $episode = $action->handle($request->validated());
+        $episode = $createEpisode->handle($request->validated());
         return redirect()->route('episodes.show', $episode);
     }
 

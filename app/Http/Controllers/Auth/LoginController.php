@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\Auth\LogoutUserAction;
+use App\Actions\Workspace\SetWorkspaceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use Illuminate\Http\RedirectResponse;
@@ -26,22 +28,18 @@ class LoginController extends Controller
      * Login the user.
      *
      * @param LoginUserRequest $request
+     * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
-    public function store(LoginUserRequest $request): RedirectResponse
+    public function store(
+        LoginUserRequest $request,
+        SetWorkspaceAction $setWorkspace
+    ): RedirectResponse
     {
         if (Auth::attempt($request->validated(), $request->boolean('remember')))
         {
             $request->session()->regenerate();
-
-            // Set current workspace in session to the oldest workspace of the user
-            $oldestWorkspaceId = Auth::user()->workspaces()->oldest()->value('id');
-            if ($oldestWorkspaceId) {
-                $request->session()->put('workspace_id', $oldestWorkspaceId);
-            } else {
-                // Ensure key exists (optional)
-                $request->session()->forget('workspace_id');
-            }
+            $setWorkspace->handle();
 
             return redirect()->route('dashboard');
         }
@@ -54,17 +52,12 @@ class LoginController extends Controller
     /**
      * Logout the user.
      *
-     * @param Request $request
+     * @param LogoutUserAction $logoutUser
      * @return RedirectResponse
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(LogoutUserAction $logoutUser): RedirectResponse
     {
-        Auth::logout();
-
-        $request->session()->forget('workspace_id');
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
+        $logoutUser->handle();
         return redirect()->route('login');
     }
 }

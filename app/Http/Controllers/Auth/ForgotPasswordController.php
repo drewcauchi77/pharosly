@@ -28,14 +28,17 @@ class ForgotPasswordController extends Controller
      * Send a forgot password email.
      *
      * @param ForgotPasswordRequest $request
-     * @param ForgotPasswordAction $action
+     * @param ForgotPasswordAction $forgotPassword
      * @return RedirectResponse
      */
-    public function store(ForgotPasswordRequest $request, ForgotPasswordAction $action): RedirectResponse
+    public function store(
+        ForgotPasswordRequest $request,
+        ForgotPasswordAction $forgotPassword
+    ): RedirectResponse
     {
         $request->validated();
 
-        $status = $action->handle(
+        $status = $forgotPassword->handle(
             $request->only('email')
         );
 

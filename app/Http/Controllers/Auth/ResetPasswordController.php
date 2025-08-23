@@ -35,14 +35,17 @@ class ResetPasswordController extends Controller
      * Resetting the password through the email and token.
      *
      * @param ResetPasswordRequest $request
-     * @param ResetPasswordAction $action
+     * @param ResetPasswordAction $resetPassword
      * @return RedirectResponse
      */
-    public function store(ResetPasswordRequest $request, ResetPasswordAction $action): RedirectResponse
+    public function store(
+        ResetPasswordRequest $request,
+        ResetPasswordAction $resetPassword
+    ): RedirectResponse
     {
         $request->validated();
 
-        $status = $action->handle(
+        $status = $resetPassword->handle(
             $request->only('email', 'password', 'password_confirmation', 'token')
         );
 

@@ -67,4 +67,12 @@ class WorkspacePolicy
     {
         return false;
     }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function switch(User $user, Workspace $workspace): bool
+    {
+        return $user->id === (int) $workspace->user_id;
+    }
 }

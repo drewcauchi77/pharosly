@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\User\CreateUserAction;
 use App\Actions\Workspace\CreateWorkspaceAction;
+use App\Actions\Workspace\SetWorkspaceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use Illuminate\Http\RedirectResponse;
@@ -27,24 +28,24 @@ class RegisterController extends Controller
      * Create a new user account.
      *
      * @param RegisterUserRequest $request
-     * @param CreateUserAction $userAction
-     * @param CreateWorkspaceAction $workspaceAction
+     * @param CreateUserAction $createUser
+     * @param CreateWorkspaceAction $createWorkspace
+     * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
-    public function store(RegisterUserRequest $request, CreateUserAction $userAction, CreateWorkspaceAction $workspaceAction): RedirectResponse
+    public function store(
+        RegisterUserRequest $request,
+        CreateUserAction $createUser,
+        CreateWorkspaceAction $createWorkspace,
+        SetWorkspaceAction $setWorkspace
+    ): RedirectResponse
     {
-        $user = $userAction->handle($request->validated());
-        $workspaceAction->handle($request->validated(), $user);
+        $user = $createUser->handle($request->validated());
+        $createWorkspace->handle($request->validated(), $user);
 
         Auth::login($user);
 
-        // Set current workspace in session to the oldest workspace of the user (the one just created)
-        $oldestWorkspaceId = Auth::user()->workspaces()->oldest()->value('id');
-        if ($oldestWorkspaceId) {
-            session(['workspace_id' => $oldestWorkspaceId]);
-        } else {
-            session()->forget('workspace_id');
-        }
+        $setWorkspace->handle();
 
         return redirect()->route('dashboard');
     }
