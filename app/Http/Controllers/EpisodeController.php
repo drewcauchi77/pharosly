@@ -24,6 +24,7 @@ class EpisodeController extends Controller
     {
         Gate::authorize('viewAny', Episode::class);
 
+        // TODO
         // Determine the current workspace from session; if missing/invalid, fall back to oldest
         $user = Auth::user();
         $workspaceId = session('workspace_id');
