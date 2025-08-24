@@ -25,6 +25,7 @@ const switchWorkspace = (episodeId) => {
 </script>
 
 <template>
+    {{ console.log(workspaces) }}
     <Head title="Workspaces" />
 
     <PageTitle title="Workspaces" description="A list of workspaces that you have created." class="text-left" />
@@ -75,8 +76,12 @@ const switchWorkspace = (episodeId) => {
 
             <template #cell-actions="{ item }">
                 <div class="flex gap-3 items-center">
-                    <PrimaryButton class="!w-fit" @click="switchWorkspace(item.id)">
-                        Open Workspace
+                    <PrimaryButton class="!w-fit" v-if="item.isCurrent" disabled>
+                        Current Workspace
+                    </PrimaryButton>
+
+                    <PrimaryButton class="!w-fit" @click="switchWorkspace(item.id)" v-else>
+                        Switch Workspace
                     </PrimaryButton>
 
                     <LinkItem routeName="workspaces.edit" :routeValue="item.id">

@@ -12,10 +12,6 @@ final class CreateWorkspaceAction
     /**
      * Handles workspace creation.
      *
-     * Accepts payloads from different forms:
-     * - { workspace: string, ... }
-     * - { name: string, ... }
-     *
      * @param array<string, mixed> $data
      * @param User|null $user
      * @return void

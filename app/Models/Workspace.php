@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Workspace extends Model
 {
@@ -31,7 +33,8 @@ class Workspace extends Model
     protected $appends = [
         'image',
         'episodesCount',
-        'usersCount'
+        'usersCount',
+        'isCurrent'
     ];
 
     /**
@@ -65,6 +68,18 @@ class Workspace extends Model
     public function getUsersCountAttribute(): int
     {
         return $this->user()->count();
+    }
+
+    /**
+     * Checks whether the current session holds the workspace.
+     *
+     * @return bool
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function getIsCurrentAttribute(): bool
+    {
+        return session()->get('workspace_id') === (int) $this->id;
     }
 
     /**

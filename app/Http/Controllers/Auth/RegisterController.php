@@ -42,9 +42,7 @@ class RegisterController extends Controller
     {
         $user = $createUser->handle($request->validated());
         $createWorkspace->handle($request->validated(), $user);
-
         Auth::login($user);
-
         $setWorkspace->handle();
 
         return redirect()->route('dashboard');
