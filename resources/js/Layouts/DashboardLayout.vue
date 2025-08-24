@@ -1,5 +1,4 @@
 <script setup>
-
 import SideMenu from "@/Components/Menus/SideMenu.vue";
 </script>
 

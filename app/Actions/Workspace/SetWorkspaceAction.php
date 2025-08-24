@@ -3,6 +3,7 @@
 namespace App\Actions\Workspace;
 
 use App\Actions\Auth\LogoutUserAction;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -15,12 +16,18 @@ final class SetWorkspaceAction
      */
     public function handle(): void
     {
-        $mainWorkspaceId = Auth::user()->workspaces()->oldest()->value('id');
+        // TODO Null check with Junie, how to handle
+        $user = Auth::user();
 
-        if ($mainWorkspaceId) {
-            $this->switch($mainWorkspaceId);
-        } else {
-            (new LogoutUserAction)->handle();
+        if ($user instanceof User) {
+            $workspaces = $user->workspaces();
+            $mainWorkspaceId = $workspaces->oldest()->value('id');
+
+            if ($mainWorkspaceId) {
+                $this->switch($mainWorkspaceId);
+            } else {
+                (new LogoutUserAction)->handle();
+            }
         }
     }
 

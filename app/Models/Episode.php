@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $video_link
+ * @property int $workspace_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
 class Episode extends Model
 {
     /** @use HasFactory<EpisodeFactory> */
