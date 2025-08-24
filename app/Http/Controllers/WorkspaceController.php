@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Workspace\CreateWorkspaceAction;
+use App\Actions\Workspace\SetWorkspaceAction;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\Workspace;
@@ -64,7 +65,10 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified workspace.
+     *
+     * @param Workspace $workspace
+     * @return Response
      */
     public function edit(Workspace $workspace): Response
     {
@@ -91,12 +95,16 @@ class WorkspaceController extends Controller
 
     /**
      * Switch the current session workspace to the provided workspace.
-     * This can be called from the frontend (VueJS) to change context.
+     *
+     * @param Request $request
+     * @param Workspace $workspace
+     * @param SetWorkspaceAction $setWorkspace
+     * @return RedirectResponse
      */
-    public function switch(Request $request, Workspace $workspace): RedirectResponse
+    public function switch(Request $request, Workspace $workspace, SetWorkspaceAction $setWorkspace): RedirectResponse
     {
         Gate::authorize('switch', $workspace);
-        $request->session()->put('workspace_id', $workspace->id); // to update this TODO
+        $setWorkspace->switch($workspace->id);
 
         return redirect()->route('episodes.index')->with('status', 'Workspace switched');
     }
