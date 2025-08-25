@@ -91,7 +91,7 @@ class Workspace extends Model
      */
     public function getIsCurrentAttribute(): bool
     {
-        return session()->get('workspace_id') === (int) $this->id;
+        return session()->get('workspace_id') === $this->id;
     }
 
     /**

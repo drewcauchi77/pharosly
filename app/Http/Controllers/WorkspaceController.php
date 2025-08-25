@@ -96,12 +96,14 @@ class WorkspaceController extends Controller
     /**
      * Switch the current session workspace to the provided workspace.
      *
-     * @param Request $request
      * @param Workspace $workspace
      * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
-    public function switch(Request $request, Workspace $workspace, SetWorkspaceAction $setWorkspace): RedirectResponse
+    public function switch(
+        Workspace $workspace,
+        SetWorkspaceAction $setWorkspace
+    ): RedirectResponse
     {
         Gate::authorize('switch', $workspace);
         $setWorkspace->switch($workspace->id);
