@@ -7,6 +7,7 @@ use App\Actions\Workspace\SetWorkspaceAction;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\Workspace;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ class WorkspaceController extends Controller
      * @param StoreWorkspaceRequest $request
      * @param CreateWorkspaceAction $createWorkspace
      * @return RedirectResponse
+     * @throws AuthenticationException
      */
     public function store(
         StoreWorkspaceRequest $request,

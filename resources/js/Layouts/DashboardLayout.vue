@@ -1,5 +1,11 @@
 <script setup>
 import SideMenu from "@/Components/Menus/SideMenu.vue";
+import SuccessMessage from "@/Components/Statuses/SuccessMessage.vue";
+
+defineProps({
+    title: String,
+    description: String
+});
 </script>
 
 <template>
@@ -14,4 +20,6 @@ import SideMenu from "@/Components/Menus/SideMenu.vue";
             </div>
         </div>
     </main>
+
+    <SuccessMessage v-if="title && description" :title="title" :description="description" />
 </template>

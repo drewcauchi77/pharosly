@@ -41,7 +41,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $setWorkspace->handle();
 
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with([
+                'success' => [
+                    'title' => 'Login success',
+                    'description' => 'Welcome back! You are now logged in.'
+                ]
+            ]);
         }
 
         return back()->withErrors([

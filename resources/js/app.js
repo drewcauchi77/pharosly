@@ -11,7 +11,7 @@ createInertiaApp({
         });
 
         let page = pages[`./Pages/${name}.vue`];
-        page.default.layout ||= resolveLayout(name);
+        page.default.layout = resolveLayout(name);
 
         return page;
     },

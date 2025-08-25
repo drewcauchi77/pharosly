@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\WorkspaceFactory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,8 @@ use Psr\Container\NotFoundExceptionInterface;
  * @property-read int $episodesCount
  * @property-read int $usersCount
  * @property-read bool $isCurrent
+ * @property-read User $user
+ * @property-read Collection<int, Episode> $episodes
  */
 class Workspace extends Model
 {

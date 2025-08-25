@@ -1,7 +1,12 @@
 <script setup>
-defineProps({
-    auth: Object
+import { useSuccessProps } from "@/Composables/success.js";
+
+const props = defineProps({
+    auth: Object,
+    success: Object
 });
+
+useSuccessProps(props.success);
 </script>
 
 <template>

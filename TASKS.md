@@ -9,7 +9,7 @@
 9. Make sure policies are working
 10. Add better success messages on the Layout
 11. Error messages there too
-12. Null checks?
+12. Null checks? ✅
 13. Redirect for 403 messages
 14. TESTS TESTS TESTS with Pest 4!!!
 15. PHP Stan? + properties added on the model to avoid squiggly errors

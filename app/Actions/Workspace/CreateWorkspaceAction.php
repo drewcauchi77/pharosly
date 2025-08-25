@@ -2,6 +2,7 @@
 
 namespace App\Actions\Workspace;
 
+use App\Actions\Auth\LogoutUserAction;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
@@ -21,16 +22,16 @@ final class CreateWorkspaceAction
         $name = $data['workspace'] ?? $data['name'] ?? null;
         $name = is_string($name) ? trim($name) : null;
 
-        /**
-         * TODO Junie - How should I handle the null check here? User is always going to be logged in because the route is being Auth middleware. In this case should I throw a 503? Isn't is useless due to the middleware?
-         **/
-        $user = !$user ? Auth::user() : $user;
+        $user = $user ?? Auth::user();
 
-        if ($user instanceof User) {
-            Workspace::query()->create([
-                'name' => $name,
-                'user_id' => $user->id,
-            ]);
+        if (!$user instanceof User) {
+            (new LogoutUserAction)->handle();
+            return;
         }
+
+        Workspace::query()->create([
+            'name' => $name,
+            'user_id' => $user->id,
+        ]);
     }
 }

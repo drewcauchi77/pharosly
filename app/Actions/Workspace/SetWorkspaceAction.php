@@ -16,20 +16,20 @@ final class SetWorkspaceAction
      */
     public function handle(): void
     {
-        /**
-         * TODO Junie - How should I handle the null check here? User is always going to be logged in because the route is being Auth middleware. In this case should I throw a 503? Isn't is useless due to the middleware?
-         **/
         $user = Auth::user();
 
-        if ($user instanceof User) {
-            $workspaces = $user->workspaces();
-            $mainWorkspaceId = $workspaces->oldest()->value('id');
+        if (!$user instanceof User) {
+            (new LogoutUserAction)->handle();
+            return;
+        }
 
-            if ($mainWorkspaceId) {
-                $this->switch($mainWorkspaceId);
-            } else {
-                (new LogoutUserAction)->handle();
-            }
+        $workspaces = $user->workspaces();
+        $mainWorkspaceId = $workspaces->oldest()->value('id');
+
+        if ($mainWorkspaceId) {
+            $this->switch($mainWorkspaceId);
+        } else {
+            (new LogoutUserAction)->handle();
         }
     }
 
