@@ -1,11 +1,26 @@
 <script setup>
+import { ref, watch } from "vue";
 import SideMenu from "@/Components/Menus/SideMenu.vue";
 import SuccessMessage from "@/Components/Statuses/SuccessMessage.vue";
 
-defineProps({
+const props = defineProps({
     title: String,
     description: String
 });
+
+const shownTitle = ref(null);
+const shownDescription = ref(null);
+
+watch(
+    () => [props.title, props.description],
+    ([t, d]) => {
+        if (t && d) {
+            shownTitle.value = t;
+            shownDescription.value = d;
+        }
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
@@ -21,5 +36,5 @@ defineProps({
         </div>
     </main>
 
-    <SuccessMessage v-if="title && description" :title="title" :description="description" />
+    <SuccessMessage v-if="shownTitle && shownDescription" :title="shownTitle" :description="shownDescription" />
 </template>

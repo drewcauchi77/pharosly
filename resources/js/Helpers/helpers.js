@@ -1,3 +1,4 @@
+import { h } from "vue";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 
