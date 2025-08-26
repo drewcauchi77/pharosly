@@ -42,12 +42,11 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created workspace in storage.
      *
      * @param StoreWorkspaceRequest $request
      * @param CreateWorkspaceAction $createWorkspace
      * @return RedirectResponse
-     * @throws AuthenticationException
      */
     public function store(
         StoreWorkspaceRequest $request,
@@ -55,7 +54,13 @@ class WorkspaceController extends Controller
     ): RedirectResponse
     {
         $createWorkspace->handle($request->validated());
-        return redirect()->route('workspaces.index');
+
+        return redirect()->route('workspaces.index')->with([
+            'success' => [
+                'title' => 'Workspace Created',
+                'description' => 'Your new workspace is now in your Workspaces list.'
+            ]
+        ]);
     }
 
     /**
@@ -110,6 +115,11 @@ class WorkspaceController extends Controller
         Gate::authorize('switch', $workspace);
         $setWorkspace->switch($workspace->id);
 
-        return redirect()->route('episodes.index')->with('status', 'Workspace switched');
+        return redirect()->route('episodes.index')->with([
+            'success' => [
+                'title' => 'Workspace Switched',
+                'description' => "You’re now working in {$workspace->name}."
+            ]
+        ]);
     }
 }

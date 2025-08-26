@@ -5,9 +5,11 @@ import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import { router } from "@inertiajs/vue3";
+import { useSuccessProps } from "@/Composables/success.js";
 
-defineProps({
-    workspaces: Object
+const props = defineProps({
+    workspaces: Object,
+    success: Object
 });
 
 const columns = [
@@ -22,10 +24,11 @@ const columns = [
 const switchWorkspace = (episodeId) => {
     router.post(route('workspaces.switch', episodeId));
 }
+
+useSuccessProps(props.success);
 </script>
 
 <template>
-    {{ console.log(workspaces) }}
     <Head title="Workspaces" />
 
     <PageTitle title="Workspaces" description="A list of workspaces that you have created." class="text-left" />

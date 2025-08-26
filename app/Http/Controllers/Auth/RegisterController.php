@@ -45,6 +45,11 @@ class RegisterController extends Controller
         Auth::login($user);
         $setWorkspace->handle();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with([
+            'success' => [
+                'title' => 'Registration Successful',
+                'description' => 'Your account has been created. You are now logged in.'
+            ]
+        ]);
     }
 }

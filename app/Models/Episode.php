@@ -32,6 +32,7 @@ class Episode extends Model
         'title',
         'description',
         'video_link',
+        'workspace_id',
     ];
 
     /**

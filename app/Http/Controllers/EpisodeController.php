@@ -55,7 +55,13 @@ class EpisodeController extends Controller
     ): RedirectResponse
     {
         $episode = $createEpisode->handle($request->validated());
-        return redirect()->route('episodes.show', $episode);
+
+        return redirect()->route('episodes.show', $episode)->with([
+            'success' => [
+                'title' => 'Episode Created',
+                'description' => 'Your new episode is now successfully created.'
+            ]
+        ]);
     }
 
     /**
