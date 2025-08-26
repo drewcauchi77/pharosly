@@ -3,11 +3,19 @@ defineProps({
     title: String,
     description: String,
 });
+
+const emit = defineEmits(['close']);
+
+const closeMessage = () => {
+    emit('close');
+}
 </script>
 
 <template>
     <div
-        class="fixed flex gap-4 bottom-4 mx-4 cursor-pointer bg-success text-white rounded-sm shadow-lg px-4 py-3 w-[calc(100%-32px)] sm:w-fit sm:right-4 sm:m-0 sm:max-w-md hover:bg-success-hover">
+        class="flex gap-4 cursor-pointer bg-success text-white rounded-sm shadow-lg px-4 py-3 w-[calc(100%-32px)] sm:w-fit sm:max-w-md hover:bg-success-hover"
+        @click="closeMessage"
+    >
         <div>
             <strong v-if="title" class="block font-semibold mb-1">{{ title }}</strong>
             <span class="text-sm">{{ description }}</span>

@@ -5,7 +5,7 @@ export function useSuccessProps(success) {
     onMounted(() => {
         const { props } = usePage();
 
-        props.title = success.title ?? 'Success!';
-        props.description = success.description ?? 'Your action has been successful!';
+        props.title = success.title;
+        props.description = success.description;
     });
 }

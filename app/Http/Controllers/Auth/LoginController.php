@@ -43,8 +43,8 @@ class LoginController extends Controller
 
             return redirect()->route('dashboard')->with([
                 'success' => [
-                    'title' => 'Login success',
-                    'description' => 'Welcome back! You are now logged in.'
+                    'title' => 'Logged In',
+                    'description' => 'You’re all set to continue.'
                 ]
             ]);
         }
@@ -63,6 +63,12 @@ class LoginController extends Controller
     public function destroy(LogoutUserAction $logoutUser): RedirectResponse
     {
         $logoutUser->handle();
-        return redirect()->route('login');
+
+        return redirect()->route('login')->with([
+            'success' => [
+                'title' => 'Logged Out',
+                'description' => 'You’ve been signed out successfully.'
+            ]
+        ]);
     }
 }

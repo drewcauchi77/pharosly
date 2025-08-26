@@ -6,9 +6,11 @@ import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import CheckboxField from "@/Components/Fields/CheckboxField.vue";
 import { useForm } from "@inertiajs/vue3";
+import { useSuccessProps } from "@/Composables/success.js";
 
-defineProps({
-    errors: Object
+const props = defineProps({
+    errors: Object,
+    success: Object
 });
 
 const form = useForm({
@@ -22,6 +24,8 @@ const submit = () => {
         onFinish: () => form.reset('password')
     });
 };
+
+useSuccessProps(props.success);
 </script>
 
 <template>
