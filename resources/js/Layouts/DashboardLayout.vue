@@ -13,10 +13,10 @@ const shownDescription = ref(null);
 
 watch(
     () => [props.title, props.description],
-    ([t, d]) => {
-        if (t && d) {
-            shownTitle.value = t;
-            shownDescription.value = d;
+    ([title, description]) => {
+        if (title && description) {
+            shownTitle.value = title;
+            shownDescription.value = description;
         }
     },
     { immediate: true }
@@ -36,5 +36,14 @@ watch(
         </div>
     </main>
 
-    <SuccessMessage v-if="shownTitle && shownDescription" :title="shownTitle" :description="shownDescription" />
+    <transition
+        enter-active-class="transition transform duration-300 ease-out"
+        leave-active-class="transition transform duration-200 ease-in"
+        enter-from-class="translate-y-full sm:translate-y-0 sm:translate-x-full"
+        enter-to-class="translate-y-0 sm:translate-x-0"
+        leave-from-class="translate-y-0 sm:translate-x-0"
+        leave-to-class="translate-y-full sm:translate-y-0 sm:translate-x-full"
+    >
+        <SuccessMessage v-if="shownTitle && shownDescription" :title="shownTitle" :description="shownDescription" />
+    </transition>
 </template>
