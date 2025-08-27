@@ -17,10 +17,10 @@ const makeLabel = (label) => {
 <template>
     <div class="flex justify-center items-start p-3 flex-col-reverse md:flex-row md:justify-between border-b-2 border-x-2 rounded-b-sm border-light-blue">
         <p v-if="(paginator.total && paginator.total <= 1) || !paginator.total" class="text-alternate text-sm self-center">
-            Showing <strong>{{ paginator.total }}</strong> {{ paginator.total == 1 ? 'result' : 'results' }}
+            Showing <strong class="!font-medium">{{ paginator.total }}</strong> {{ paginator.total == 1 ? 'result' : 'results' }}
         </p>
         <p v-else class="text-alternate text-sm self-center">
-            Showing <strong>{{ paginator.from }}</strong> to <strong>{{ paginator.to }}</strong> of <strong>{{ paginator.total }}</strong> results
+            Showing <strong class="!font-medium">{{ paginator.from }}</strong> to <strong class="!font-medium">{{ paginator.to }}</strong> of <strong class="!font-medium">{{ paginator.total }}</strong> results
         </p>
 
         <div class="flex items-center text-sm self-center mb-3 md:mb-0">
@@ -33,7 +33,7 @@ const makeLabel = (label) => {
                     :class="{
                         'text-primary hover:bg-light-blue': link.url && !link.active,
                         'text-alternate': !link.url,
-                        'font-bold text-white bg-primary cursor-default pointer-events-none': link.active,
+                        '!font-bold text-white bg-primary cursor-default pointer-events-none': link.active,
                     }"
                 />
             </div>

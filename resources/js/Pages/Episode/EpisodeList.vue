@@ -27,14 +27,14 @@ useSuccessProps(props.success);
     <Head title="Episodes" />
 <!--    <Link :href="route('modules.create')" class="block mb-8 text-indigo-700">Create Episode</Link>-->
 
-    <PageTitle title="Episodes" description="A list of episodes that you have created." class="text-left" />
+    <PageTitle title="Episodes" description="A list of episodes that you have created based on the workspace that is selected." class="text-left" />
 
     <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0">
         <thead class="bg-light-blue">
             <tr class="text-sm text-left">
-                <th class="p-3 border border-light-blue">Title</th>
-                <th class="p-3 border border-light-blue">Description</th>
-                <th class="p-3 border border-light-blue">Last Updated</th>
+                <th class="p-3 border border-light-blue !font-medium">Title</th>
+                <th class="p-3 border border-light-blue !font-medium">Description</th>
+                <th class="p-3 border border-light-blue !font-medium">Last Updated</th>
             </tr>
         </thead>
 

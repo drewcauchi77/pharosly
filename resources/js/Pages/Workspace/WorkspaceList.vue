@@ -31,19 +31,19 @@ useSuccessProps(props.success);
 <template>
     <Head title="Workspaces" />
 
-    <PageTitle title="Workspaces" description="A list of workspaces that you have created." class="text-left" />
+    <PageTitle title="Workspaces" description="A list of workspaces that you have created and you can also switch workspaces." class="text-left" />
 
     <LinkItem routeName="workspaces.create">New Workspace</LinkItem>
 
     <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0">
         <thead class="bg-light-blue">
             <tr class="text-sm text-left">
-                <th class="p-3 border border-light-blue">Name</th>
-                <th class="p-3 border border-light-blue">Episodes</th>
-                <th class="p-3 border border-light-blue">Series</th>
-                <th class="p-3 border border-light-blue">Users</th>
-                <th class="p-3 border border-light-blue">Labels</th>
-                <th class="p-3 border border-light-blue">Actions</th>
+                <th class="p-3 border border-light-blue !font-medium">Name</th>
+                <th class="p-3 border border-light-blue !font-medium">Episodes</th>
+                <th class="p-3 border border-light-blue !font-medium">Series</th>
+                <th class="p-3 border border-light-blue !font-medium">Users</th>
+                <th class="p-3 border border-light-blue !font-medium">Labels</th>
+                <th class="p-3 border border-light-blue !font-medium">Actions</th>
             </tr>
         </thead>
 

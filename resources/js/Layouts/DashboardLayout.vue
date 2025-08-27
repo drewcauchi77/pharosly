@@ -50,11 +50,15 @@ watch(
         <TopBar />
 
         <div class="grid pt-[30px]">
-            <div class="fixed border-r-1 border-light-blue h-full w-3xs">
-                <SideMenu />
+            <div class="fixed h-full w-full lg:w-3xs z-50">
+                <div class="bg-overlay w-full h-full lg:hidden"></div>
+
+                <div class="fixed border-r-1 border-light-blue bg-white h-full w-95 max-w-3xs top-[30px]">
+                    <SideMenu />
+                </div>
             </div>
 
-            <div class="ml-[256px]">
+            <div class="lg:ml-[256px]">
                 <div class="p-5 max-w-[1680px] mx-auto">
                     <slot />
                 </div>
@@ -62,7 +66,7 @@ watch(
         </div>
     </main>
 
-    <div class="fixed bottom-4 right-4 mx-4 sm:m-0 flex flex-col gap-2 items-stretch sm:items-end w-[calc(100%-32px)] sm:w-auto">
+    <div class="fixed bottom-4 right-4 mx-4 sm:m-0 flex flex-col gap-2 items-stretch sm:items-end">
         <transition-group
             enter-active-class="transition transform duration-300 ease-out"
             leave-active-class="transition transform duration-200 ease-in"

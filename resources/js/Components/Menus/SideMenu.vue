@@ -1,26 +1,38 @@
 <script setup>
-import LinkItem from "@/Components/Elements/LinkItem.vue";
-import { Link } from "@inertiajs/vue3";
+import MenuGroup from "@/Components/Menus/MenuGroup.vue";
 </script>
 
 <template>
-    <div>
-        <div>
-            <!-- Logo-->
-        </div>
-
+    <div class="px-5 py-4 h-[calc(100%-30px)] overflow-y-auto">
         <nav>
-            <span>Menu</span><br>
+            <MenuGroup
+                title="Menu"
+                :items="[
+                    { route: 'dashboard', name: 'Dashboard', icon: 'chart-line' }
+                ]"
+            />
 
-            <LinkItem routeName="dashboard">Dashboard</LinkItem><br>
+            <MenuGroup
+                title="Academy"
+                :items="[
+                    { route: 'episodes.index', name: 'Episodes', icon: 'video' },
+                    { route: 'workspaces.index', name: 'Workspaces', icon: 'briefcase' }
+                ]"
+            />
 
-            <LinkItem routeName="episodes.index">Episodes</LinkItem><br>
+            <MenuGroup
+                title="Settings"
+                :items="[
+                    { route: 'episodes.index', name: 'User', icon: 'gear' }
+                ]"
+            />
 
-            <Link as="button" method="delete" :href="route('login.destroy')" class="block w-full px-6 py-3 hover:bg-slate-700 text-left">Logout</Link>
-
-            <span>Settings</span><br>
-
-            <LinkItem routeName="workspaces.index">Workspaces</LinkItem><br>
+            <MenuGroup
+                title="User"
+                :items="[
+                    { route: 'login.destroy', name: 'Logout', icon: 'arrow-right-from-bracket', method: 'delete' }
+                ]"
+            />
         </nav>
     </div>
 </template>
