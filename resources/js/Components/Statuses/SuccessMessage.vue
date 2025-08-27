@@ -13,7 +13,7 @@ const closeMessage = () => {
 
 <template>
     <div
-        class="flex gap-4 cursor-pointer bg-success text-white rounded-sm shadow-lg px-4 py-3 w-[calc(100%-32px)] sm:w-fit sm:max-w-md hover:bg-success-hover"
+        class="flex gap-4 cursor-pointer bg-success rounded-sm shadow-lg px-4 py-3 w-[calc(100%-32px)] text-success-text sm:w-fit sm:max-w-md hover:bg-success-hover"
         @click="closeMessage"
     >
         <div>

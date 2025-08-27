@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import SideMenu from "@/Components/Menus/SideMenu.vue";
 import SuccessMessage from "@/Components/Statuses/SuccessMessage.vue";
+import TopBar from "@/Components/Menus/TopBar.vue";
 
 const props = defineProps({
     title: String,
@@ -45,14 +46,18 @@ watch(
 </script>
 
 <template>
-    <main class="grid">
-        <div class="fixed border-r-1 border-light-blue h-full w-3xs">
-            <SideMenu />
-        </div>
+    <main>
+        <TopBar />
 
-        <div class="ml-[256px]">
-            <div class="p-5 max-w-[1680px] mx-auto">
-                <slot />
+        <div class="grid pt-[30px]">
+            <div class="fixed border-r-1 border-light-blue h-full w-3xs">
+                <SideMenu />
+            </div>
+
+            <div class="ml-[256px]">
+                <div class="p-5 max-w-[1680px] mx-auto">
+                    <slot />
+                </div>
             </div>
         </div>
     </main>
