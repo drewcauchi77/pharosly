@@ -7,28 +7,19 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-final class SetWorkspaceAction
+final readonly class SetWorkspaceAction
 {
     /**
      * @return void
      */
     public function handle(): void
     {
+        /** @var User $user */
         $user = Auth::user();
-
-        if (!$user instanceof User) {
-            (new LogoutUserAction)->handle();
-            return;
-        }
 
         $workspaces = $user->workspaces();
         $mainWorkspaceId = $workspaces->oldest()->value('id');
-
-        if ($mainWorkspaceId) {
-            $this->switch($mainWorkspaceId);
-        } else {
-            (new LogoutUserAction)->handle();
-        }
+        $this->switch($mainWorkspaceId);
     }
 
     /**

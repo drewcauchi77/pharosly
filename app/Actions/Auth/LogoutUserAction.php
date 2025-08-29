@@ -5,7 +5,7 @@ namespace App\Actions\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-final class LogoutUserAction
+final readonly class LogoutUserAction
 {
     /**
      * @return void

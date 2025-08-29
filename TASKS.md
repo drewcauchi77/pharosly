@@ -14,9 +14,9 @@
 14. TESTS TESTS TESTS with Pest 4!!! Architecture + Browser + TEST COVERAGE 100%
 15. PHP Stan? + properties added on the model to avoid squiggly errors
 16. Update ReadMe file with all the requirements
-17. DB::Transaction on the actions
+17. DB::Transaction on the actions (auth remains)
 18. Wayfinder to replace Ziggy?
-19. Actions final class readonly
-20. Remove the comments from the PHPDOC
-21. Create a DTO in Actions as first parameter (IMPORTANT SCREENSHOTS/DTOs)
-22. Fillables to remove?
+19. Actions final class readonly ✅
+20. Remove the comments from the PHPDOC ✅
+21. Create a DTO in Actions as first parameter (IMPORTANT SCREENSHOTS/DTOs) (auth remains)
+22. Fillables to remove? ✅

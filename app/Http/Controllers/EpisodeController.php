@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Episode\CreateEpisodeAction;
+use App\DTO\EpisodeDTO;
 use App\Http\Requests\Episode\StoreEpisodeRequest;
 use App\Http\Requests\Episode\UpdateEpisodeRequest;
 use App\Models\Episode;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -48,7 +48,13 @@ class EpisodeController extends Controller
         CreateEpisodeAction $createEpisode
     ): RedirectResponse
     {
-        $episode = $createEpisode->handle($request->validated());
+        $episodeDTO = new EpisodeDTO(
+            $request->validated()['title'],
+            $request->validated()['description'],
+            $request->validated()['video_link'],
+        );
+
+        $episode = $createEpisode->handle($episodeDTO);
 
         return redirect()->route('episodes.show', $episode)->with([
             'success' => [

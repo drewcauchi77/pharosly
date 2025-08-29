@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Actions\Workspace\SetWorkspaceAction;
+use App\DTO\WorkspaceDTO;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
+use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
@@ -22,9 +24,12 @@ class WorkspaceController extends Controller
      */
     public function index(): Response
     {
+        /** @var User $user */
+        $user = Auth::user();
+
         return Inertia::render('Workspace/WorkspaceList', [
             'workspaces' => Workspace::query()
-                ->where('user_id', Auth::user()->id)
+                ->where('user_id', $user->id)
                 ->paginate(15)
         ]);
     }
@@ -47,7 +52,15 @@ class WorkspaceController extends Controller
         CreateWorkspaceAction $createWorkspace
     ): RedirectResponse
     {
-        $createWorkspace->handle($request->validated());
+        /** @var User $user */
+        $user = Auth::user();
+
+        $workspaceDTO = new WorkspaceDTO(
+            $request->validated()['name'],
+            $user->id
+        );
+
+        $createWorkspace->handle($workspaceDTO);
 
         return redirect()->route('workspaces.index')->with([
             'success' => [
@@ -112,7 +125,7 @@ class WorkspaceController extends Controller
         return redirect()->route('episodes.index')->with([
             'success' => [
                 'title' => 'Workspace Switched',
-                'description' => "You’re now working in {$workspace->name}."
+                'description' => "You’re now working in '{$workspace->name}'."
             ]
         ]);
     }

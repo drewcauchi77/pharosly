@@ -4,7 +4,7 @@ namespace App\Actions\Auth;
 
 use Illuminate\Support\Facades\Password;
 
-final class ForgotPasswordAction
+final readonly class ForgotPasswordAction
 {
     /**
      * @param array<mixed> $data

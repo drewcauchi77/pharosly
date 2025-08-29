@@ -31,8 +31,6 @@ class Workspace extends Model
     use HasFactory;
 
     /**
-     * Attributes that should be appended to array/JSON form.
-     *
      * @var list<string>
      */
     protected $appends = [
@@ -43,8 +41,6 @@ class Workspace extends Model
     ];
 
     /**
-     * Get test image based on the first character of the name.
-     *
      * @return string
      */
     public function getImageAttribute(): string
@@ -56,8 +52,6 @@ class Workspace extends Model
     }
 
     /**
-     * Get the total amount of episodes in the workspace.
-     *
      * @return int
      */
     public function getEpisodesCountAttribute(): int
@@ -66,8 +60,6 @@ class Workspace extends Model
     }
 
     /**
-     * Get the total amount of users in the workspace.
-     *
      * @return int
      */
     public function getUsersCountAttribute(): int
@@ -76,8 +68,6 @@ class Workspace extends Model
     }
 
     /**
-     * Checks whether the current session holds the workspace.
-     *
      * @return bool
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -88,8 +78,6 @@ class Workspace extends Model
     }
 
     /**
-     * Workspace should have only 1 user.
-     *
      * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
@@ -98,8 +86,6 @@ class Workspace extends Model
     }
 
     /**
-     * Workspace can have many episodes.
-     *
      * @return HasMany<Episode, $this>
      */
     public function episodes(): HasMany

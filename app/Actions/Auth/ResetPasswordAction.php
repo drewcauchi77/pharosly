@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-final class ResetPasswordAction
+final readonly class ResetPasswordAction
 {
     /**
      * @param array<mixed> $data

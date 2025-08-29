@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\User\CreateUserAction;
-use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Actions\Workspace\SetWorkspaceAction;
+use App\DTO\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use Illuminate\Http\RedirectResponse;
@@ -25,19 +25,22 @@ class RegisterController extends Controller
     /**
      * @param RegisterUserRequest $request
      * @param CreateUserAction $createUser
-     * @param CreateWorkspaceAction $createWorkspace
      * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
     public function store(
         RegisterUserRequest $request,
         CreateUserAction $createUser,
-        CreateWorkspaceAction $createWorkspace,
         SetWorkspaceAction $setWorkspace
     ): RedirectResponse
     {
-        $user = $createUser->handle($request->validated());
-        $createWorkspace->handle($request->validated(), $user);
+        $userDTO = new UserDTO(
+            $request->validated()['email'],
+            $request->validated()['password']
+        );
+
+        $user = $createUser->handle($userDTO, $request->validated()['workspace']);
+
         Auth::login($user);
         $setWorkspace->handle();
 

@@ -2,21 +2,21 @@
 
 namespace App\Actions\Episode;
 
+use App\DTO\EpisodeDTO;
 use App\Models\Episode;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
-final class CreateEpisodeAction
+final readonly class CreateEpisodeAction
 {
     /**
-     * @param array<mixed> $data
+     * @param EpisodeDTO $attributes
      * @return Episode
      */
-    public function handle(array $data): Episode
+    public function handle(EpisodeDTO $attributes): Episode
     {
-        $data = array_merge($data, [
-            'workspace_id' => Session::get('workspace_id'),
-        ]);
-
-        return Episode::query()->create($data);
+        return DB::transaction(function () use ($attributes) {
+            return Episode::query()
+                ->create($attributes->toArray());
+        });
     }
 }
