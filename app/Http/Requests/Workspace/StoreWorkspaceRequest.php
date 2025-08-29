@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Gate;
 class StoreWorkspaceRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
      * @return Response
      */
     public function authorize(): Response
@@ -21,8 +19,6 @@ class StoreWorkspaceRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array

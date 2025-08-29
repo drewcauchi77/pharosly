@@ -15,8 +15,6 @@ use Inertia\Response;
 class LoginController extends Controller
 {
     /**
-     * Show the login form.
-     *
      * @return Response
      */
     public function create(): Response
@@ -25,8 +23,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Login the user.
-     *
      * @param LoginUserRequest $request
      * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
@@ -55,8 +51,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Logout the user.
-     *
      * @param LogoutUserAction $logoutUser
      * @return RedirectResponse
      */

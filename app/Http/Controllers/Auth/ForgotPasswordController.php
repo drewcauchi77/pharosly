@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class ForgotPasswordController extends Controller
 {
     /**
-     * Show the forgot password form.
-     *
      * @return Response
      */
     public function create(): Response
@@ -25,8 +23,6 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * Send a forgot password email.
-     *
      * @param ForgotPasswordRequest $request
      * @param ForgotPasswordAction $forgotPassword
      * @return RedirectResponse

@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Session;
 final class SetWorkspaceAction
 {
     /**
-     * Handle the workspace change.
-     *
      * @return void
      */
     public function handle(): void
@@ -34,8 +32,6 @@ final class SetWorkspaceAction
     }
 
     /**
-     * Changes the workspace.
-     *
      * @param int $workspaceId
      * @return void
      */

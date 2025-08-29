@@ -18,8 +18,6 @@ use Inertia\Response;
 class ResetPasswordController extends Controller
 {
     /**
-     * Show the reset password form.
-     *
      * @param Request $request
      * @return Response
      */
@@ -32,8 +30,6 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Resetting the password through the email and token.
-     *
      * @param ResetPasswordRequest $request
      * @param ResetPasswordAction $resetPassword
      * @return RedirectResponse

@@ -15,8 +15,6 @@ use Inertia\Response;
 class RegisterController extends Controller
 {
     /**
-     * Show the register form.
-     *
      * @return Response
      */
     public function create(): Response
@@ -25,8 +23,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user account.
-     *
      * @param RegisterUserRequest $request
      * @param CreateUserAction $createUser
      * @param CreateWorkspaceAction $createWorkspace

@@ -18,8 +18,6 @@ use Inertia\Response;
 class WorkspaceController extends Controller
 {
     /**
-     * Display the listing of the workspaces.
-     *
      * @return Response
      */
     public function index(): Response
@@ -32,8 +30,6 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
      * @return Response
      */
     public function create(): Response
@@ -42,8 +38,6 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Store a newly created workspace in storage.
-     *
      * @param StoreWorkspaceRequest $request
      * @param CreateWorkspaceAction $createWorkspace
      * @return RedirectResponse
@@ -64,7 +58,8 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param Workspace $workspace
+     * @return void
      */
     public function show(Workspace $workspace): void
     {
@@ -72,8 +67,6 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Show the form for editing the specified workspace.
-     *
      * @param Workspace $workspace
      * @return Response
      */
@@ -85,7 +78,9 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdateWorkspaceRequest $request
+     * @param Workspace $workspace
+     * @return void
      */
     public function update(UpdateWorkspaceRequest $request, Workspace $workspace): void
     {
@@ -93,7 +88,8 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param Workspace $workspace
+     * @return void
      */
     public function destroy(Workspace $workspace): void
     {
@@ -101,8 +97,6 @@ class WorkspaceController extends Controller
     }
 
     /**
-     * Switch the current session workspace to the provided workspace.
-     *
      * @param Workspace $workspace
      * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse

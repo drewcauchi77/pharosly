@@ -7,8 +7,6 @@ use App\Models\User;
 final class CreateUserAction
 {
     /**
-     * Handles user creation.
-     *
      * @param array<string> $data
      * @return User
      */

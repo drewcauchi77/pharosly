@@ -6,13 +6,11 @@ use App\Actions\Auth\LogoutUserAction;
 use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
-use InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 
 final class CreateWorkspaceAction
 {
     /**
-     * Handles workspace creation.
-     *
      * @param array<string, mixed> $data
      * @param User|null $user
      * @return void
@@ -29,9 +27,11 @@ final class CreateWorkspaceAction
             return;
         }
 
-        Workspace::query()->create([
-            'name' => $name,
-            'user_id' => $user->id,
-        ]);
+        DB::transaction(function () use ($user, $name) {
+            return Workspace::query()->create([
+                'name' => $name,
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }

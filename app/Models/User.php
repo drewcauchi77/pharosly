@@ -26,18 +26,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
      * @var list<string>
      */
     protected $hidden = [
@@ -46,8 +34,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -59,8 +45,6 @@ class User extends Authenticatable
     }
 
     /**
-     * User can have many workspaces.
-     *
      * @return HasMany<Workspace, $this>
      */
     public function workspaces(): HasMany

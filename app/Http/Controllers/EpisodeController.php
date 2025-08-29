@@ -16,8 +16,6 @@ use Inertia\Response;
 class EpisodeController extends Controller
 {
     /**
-     * Display the listing of the episodes.
-     *
      * @return Response
      */
     public function index(): Response
@@ -33,8 +31,6 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Show the form for creating a new episode.
-     *
      * @return Response
      */
     public function create(): Response
@@ -43,8 +39,6 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Store a newly created episode in storage.
-     *
      * @param StoreEpisodeRequest $request
      * @param CreateEpisodeAction $createEpisode
      * @return RedirectResponse
@@ -65,8 +59,6 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Display the specified episode.
-     *
      * @param Episode $episode
      * @return Response
      */
@@ -80,7 +72,8 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param Episode $episode
+     * @return void
      */
     public function edit(Episode $episode): void
     {
@@ -88,7 +81,9 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param UpdateEpisodeRequest $request
+     * @param Episode $episode
+     * @return void
      */
     public function update(UpdateEpisodeRequest $request, Episode $episode): void
     {
@@ -96,7 +91,8 @@ class EpisodeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param Episode $episode
+     * @return void
      */
     public function destroy(Episode $episode): void
     {

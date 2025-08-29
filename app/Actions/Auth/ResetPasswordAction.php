@@ -11,8 +11,6 @@ use Illuminate\Support\Str;
 final class ResetPasswordAction
 {
     /**
-     * Resets the password of the user.
-     *
      * @param array<mixed> $data
      * @return mixed
      */

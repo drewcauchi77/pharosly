@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Session;
 final class LogoutUserAction
 {
     /**
-     * Logouts the user
-     *
      * @return void
      */
     public function handle(): void

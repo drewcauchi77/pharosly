@@ -24,20 +24,6 @@ class Episode extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'title',
-        'description',
-        'video_link',
-        'workspace_id',
-    ];
-
-    /**
-     * Episode should have only 1 workspace.
-     *
      * @return BelongsTo<Workspace, $this>
      */
     public function workspace(): BelongsTo

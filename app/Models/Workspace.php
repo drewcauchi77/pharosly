@@ -31,16 +31,6 @@ class Workspace extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'user_id'
-    ];
-
-    /**
      * Attributes that should be appended to array/JSON form.
      *
      * @var list<string>
