@@ -16,9 +16,9 @@ defineProps({
 
         <ul>
             <li v-for="(item, index) in items" :key="index" class="py-3">
-                <LinkItem :routeName="item.route" :method="item.method" class="flex gap-3 items-center !text-[#6d7080] !font-normal">
-                    <i :class="`fa-solid fa-${item.icon} text-[#6d7080]`"></i>
-                    <span>{{ item.name }}</span>
+                <LinkItem :routeName="item.route" :method="item.method" class="flex gap-3 items-center" :is-primary="false">
+                    <i :class="`fa-solid fa-${item.icon} `"></i>
+                    <span class="!font-normal">{{ item.name }}</span>
                 </LinkItem>
             </li>
         </ul>

@@ -1,9 +1,14 @@
 <script setup>
 import MenuGroup from "@/Components/Menus/MenuGroup.vue";
+import {useStatusStore} from "@/State/status.store.js";
+
+const statusStore = useStatusStore();
 </script>
 
 <template>
-    <div class="px-5 py-4 h-[calc(100%-30px)] overflow-y-auto">
+    <div
+        class="px-5 py-4 h-[calc(100%-30px)] overflow-y-auto"
+    >
         <nav>
             <MenuGroup
                 title="Menu"

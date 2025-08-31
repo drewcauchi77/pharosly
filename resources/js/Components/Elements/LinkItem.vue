@@ -1,10 +1,14 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import {Link} from "@inertiajs/vue3";
 
 defineProps({
     routeName: String,
     routeValue: Number,
-    method: String
+    method: String,
+    isPrimary: {
+        type: Boolean,
+        default: true
+    }
 });
 </script>
 
@@ -12,7 +16,11 @@ defineProps({
     <Link
         :href="route(routeName, routeValue ?? null)"
         :method="method"
-        class="text-sm text-primary hover:text-primary-hover outline-primary outline-offset-2 transition-colors duration-200 cursor-pointer"
+        class="text-sm  outline-offset-2 transition-colors duration-200 cursor-pointer hover:text-primary-hover"
+        :class="[
+            { 'text-primary outline-primary' : isPrimary },
+            { 'text-text-alternate outline-text-alternate' : !isPrimary }
+        ]"
     >
         <slot />
     </Link>

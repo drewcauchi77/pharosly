@@ -7,6 +7,7 @@
     --color-alternate: rgba(20, 24, 33, 0.75);
     --color-alternate-opaque: rgba(20, 24, 33, 0.25);
     --color-text: rgba(20, 24, 33, 1);
+    --color-text-alternate: rgba(109, 112, 128, 1);
     --color-light-blue: rgba(239, 242, 247, 1);
     --color-input-icon-color: rgba(243, 246, 249, 1);
     --color-success: rgba(212, 237, 218, 1);
