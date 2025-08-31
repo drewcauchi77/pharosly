@@ -28,6 +28,7 @@ final readonly class SetWorkspaceAction
      */
     public function switch(int $workspaceId): void
     {
+        abort(503);
         Session::put('workspace_id', $workspaceId);
     }
 }

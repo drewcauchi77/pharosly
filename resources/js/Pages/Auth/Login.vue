@@ -5,12 +5,27 @@ import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import CheckboxField from "@/Components/Fields/CheckboxField.vue";
-import { useForm } from "@inertiajs/vue3";
-import { useSuccessProps } from "@/Composables/success.js";
+import {useForm, usePage} from "@inertiajs/vue3";
+import {onMounted} from "vue";
+import {useNotificationStore} from "@/State/notification.store.js";
 
-const props = defineProps({
-    errors: Object,
-    success: Object
+const notificationStore = useNotificationStore();
+const $page = usePage();
+
+defineProps({
+    errors: Object
+});
+
+onMounted(() => {
+    if ($page.props?.flash?.notification) {
+        notificationStore.pushNotification(
+            Object.assign(
+                {},
+                $page.props?.flash?.notification,
+                { id: Date.now() + Math.random() }
+            )
+        );
+    }
 });
 
 const form = useForm({
@@ -24,8 +39,6 @@ const submit = () => {
         onFinish: () => form.reset('password')
     });
 };
-
-useSuccessProps(props.success);
 </script>
 
 <template>

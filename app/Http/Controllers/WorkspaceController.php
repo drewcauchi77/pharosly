@@ -62,11 +62,9 @@ class WorkspaceController extends Controller
 
         $createWorkspace->handle($workspaceDTO);
 
-        return redirect()->route('workspaces.index')->with([
-            'success' => [
-                'title' => 'Workspace Created',
-                'description' => 'Your new workspace is now in your Workspaces list.'
-            ]
+        return redirect()->route('episodes.index')->with('notification', [
+            'title' => 'Workspace created',
+            'description' => 'Workspace {name} successfully created.'
         ]);
     }
 
@@ -122,11 +120,9 @@ class WorkspaceController extends Controller
         Gate::authorize('switch', $workspace);
         $setWorkspace->switch($workspace->id);
 
-        return redirect()->route('episodes.index')->with([
-            'success' => [
-                'title' => 'Workspace Switched',
-                'description' => "You’re now working in '{$workspace->name}'."
-            ]
+        return redirect()->route('episodes.index')->with('notification', [
+            'title' => 'Workspace switched',
+            'description' => "Workspace {name} successfully switched."
         ]);
     }
 }

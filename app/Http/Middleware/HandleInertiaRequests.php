@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -31,9 +32,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => fn() => $request->user() ? $request->user()->only('email') : null,
             ],
-            'success' => [
-                'title' => session('success.title'),
-                'description' => session('success.description'),
+            'flash' => [
+                'notification' => fn () => $request->session()->get('notification')
             ]
         ];
     }

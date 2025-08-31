@@ -3,12 +3,10 @@ import TableBody from "@/Components/Lists/TableBody.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
-import {useSuccessProps} from "@/Composables/success.js";
 
-const props = defineProps({
+defineProps({
     episodes: Object,
-    workspace: String,
-    success: Object
+    workspace: String
 });
 
 const columns = [
@@ -19,8 +17,6 @@ const columns = [
         formatter: (v) => new Date(v).toLocaleDateString(),
     },
 ];
-
-useSuccessProps(props.success);
 </script>
 
 <template>

@@ -36,11 +36,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $setWorkspace->handle();
 
-            return redirect()->route('dashboard')->with([
-                'success' => [
-                    'title' => 'Logged In',
-                    'description' => 'You’re all set to continue.'
-                ]
+            return redirect()->route('dashboard')->with('notification', [
+                'title' => 'Logged In',
+                'description' => 'You’re all set to continue.'
             ]);
         }
 
@@ -57,11 +55,9 @@ class LoginController extends Controller
     {
         $logoutUser->handle();
 
-        return redirect()->route('login')->with([
-            'success' => [
-                'title' => 'Logged Out',
-                'description' => 'You’ve been signed out successfully.'
-            ]
+        return redirect()->route('login')->with('notification', [
+            'title' => 'Logged Out',
+            'description' => 'You’ve been signed out successfully.'
         ]);
     }
 }

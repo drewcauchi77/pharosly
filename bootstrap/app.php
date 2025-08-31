@@ -20,17 +20,36 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-//        $exceptions->respond(function (Response $response, Throwable $exception, Request $request): Response {
-//            if (in_array($response->getStatusCode(), [500, 503, 404, 403])) {
-//                return Inertia::render('Error/ErrorPage', ['status' => $response->getStatusCode()])
-//                    ->toResponse($request)
-//                    ->setStatusCode($response->getStatusCode());
-//            } elseif ($response->getStatusCode() === 419) {
-//                return back()->with([
-//                    'message' => 'The page expired, please try again.',
-//                ]);
-//            }
-//
-//            return $response;
-//        });
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request): Response {
+            if ($response->getStatusCode() === 419)
+            {
+                return redirect()->back()->with('notification', [
+                    'isError' => true,
+                    'title' => 'Page Expired',
+                    'description' => 'Your current page has expired. Please refresh the page.',
+                ]);
+            }
+            else if ($response->getStatusCode() === 404)
+            {
+                // Redirect 404
+            }
+            else if ($response->getStatusCode() === 403)
+            {
+                return redirect()->back()->with('notification', [
+                    'isError' => true,
+                    'title' => 'Forbidden',
+                    'description' => 'You are not allowed to access this page or do this action.',
+                ]);
+            }
+            else
+            {
+                return redirect()->back()->with('notification', [
+                    'isError' => true,
+                    'title' => 'Unexpected Error',
+                    'description' => 'An unexpected error has occurred - please try again later.',
+                ]);
+            }
+
+            return $response;
+        });
     })->create();

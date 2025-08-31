@@ -1,5 +1,6 @@
 <script setup>
 defineProps({
+    isError: Boolean,
     title: String,
     description: String,
 });
@@ -14,6 +15,7 @@ const closeMessage = () => {
 <template>
     <div
         class="flex gap-4 cursor-pointer bg-success rounded-sm shadow-lg px-4 py-3 text-success-text w-fit max-w-md hover:bg-success-hover"
+        :class="{ '!bg-error !text-error-text !hover:bg-error-hover' : isError }"
         @click="closeMessage"
     >
         <div>

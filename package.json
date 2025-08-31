@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^2.0.17",
+        "pinia": "^3.0.3",
         "vue": "^3.5.18"
     }
 }

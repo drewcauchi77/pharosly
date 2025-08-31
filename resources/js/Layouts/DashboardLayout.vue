@@ -1,48 +1,25 @@
 <script setup>
-import { ref, watch } from "vue";
 import SideMenu from "@/Components/Menus/SideMenu.vue";
 import SuccessMessage from "@/Components/Statuses/SuccessMessage.vue";
 import TopBar from "@/Components/Menus/TopBar.vue";
+import {usePage} from "@inertiajs/vue3";
+import {useNotificationStore} from "@/State/notification.store.js";
+import {watch} from "vue";
 
-const props = defineProps({
-    title: String,
-    description: String
+const notificationStore = useNotificationStore();
+const $page = usePage();
+
+watch($page, () => {
+    if ($page.props?.flash?.notification) {
+        notificationStore.pushNotification(
+            Object.assign(
+                {},
+                $page.props?.flash?.notification,
+                { id: Date.now() + Math.random() }
+            )
+        );
+    }
 });
-
-const shownTitle = ref(null);
-const shownDescription = ref(null);
-const messages = ref([]);
-
-const removeMessage = (id) => {
-    messages.value = messages.value.filter(m => m.id !== id);
-}
-
-const pushMessage = (title, description) => {
-    const id = Date.now() + Math.random();
-    messages.value.push({ id, title, description });
-
-    return id;
-}
-
-const autoHideMessage = (id) => {
-    setTimeout(() => {
-        removeMessage(id);
-        shownTitle.value = null;
-        shownDescription.value = null;
-    }, 4000);
-}
-
-watch(
-    () => [props.title, props.description],
-    ([title, description]) => {
-        if (title && description) {
-            shownTitle.value = title;
-            shownDescription.value = description;
-            autoHideMessage(pushMessage(title, description));
-        }
-    },
-    { immediate: true }
-);
 </script>
 
 <template>
@@ -76,11 +53,12 @@ watch(
             leave-to-class="translate-y-full sm:translate-y-0 sm:translate-x-full opacity-0"
         >
             <SuccessMessage
-                v-for="m in messages"
-                :key="m.id"
-                :title="m.title"
-                :description="m.description"
-                @close="removeMessage(m.id)"
+                v-for="(notification, index) in notificationStore.notifications"
+                :key="index"
+                :is-error="notification.isError ?? false"
+                :title="notification.title"
+                :description="notification.description"
+                @click="notificationStore.removeNotification(notification.id)"
             />
         </transition-group>
     </div>

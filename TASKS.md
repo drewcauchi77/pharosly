@@ -8,9 +8,9 @@
 8. Complete the logic total for episodes and workspace 
 9. Make sure policies are working
 10. Add better success messages on the Layout ✅
-11. Error messages there too
+11. Error messages there too ✅
 12. Null checks? ✅
-13. Redirect for 403 messages
+13. Redirect for 403 messages ✅
 14. TESTS TESTS TESTS with Pest 4!!! Architecture + Browser + TEST COVERAGE 100%
 15. PHP Stan? + properties added on the model to avoid squiggly errors
 16. Update ReadMe file with all the requirements

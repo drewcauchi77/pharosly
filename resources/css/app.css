@@ -12,6 +12,9 @@
     --color-success: rgba(212, 237, 218, 1);
     --color-success-hover: rgba(212, 237, 218, 0.95);
     --color-success-text: rgba(21, 87, 36, 1);
+    --color-error: rgba(248, 215, 218, 1);
+    --color-error-hover: rgba(248, 215, 218, 0.95);
+    --color-error-text: rgba(114, 28, 36, 1);
     --color-overlay: rgba(20, 24, 33, 0.35);
     --text-sm: 15px;
     --text-xs: 13px;

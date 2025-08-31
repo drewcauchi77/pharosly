@@ -4,12 +4,10 @@ import LinkItem from "@/Components/Elements/LinkItem.vue";
 import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import { router } from "@inertiajs/vue3";
-import { useSuccessProps } from "@/Composables/success.js";
+import {router} from "@inertiajs/vue3";
 
-const props = defineProps({
-    workspaces: Object,
-    success: Object
+defineProps({
+    workspaces: Object
 });
 
 const columns = [
@@ -24,8 +22,6 @@ const columns = [
 const switchWorkspace = (episodeId) => {
     router.post(route('workspaces.switch', episodeId));
 }
-
-useSuccessProps(props.success);
 </script>
 
 <template>

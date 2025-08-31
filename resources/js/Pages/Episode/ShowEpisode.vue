@@ -1,12 +1,7 @@
 <script setup>
-import { useSuccessProps } from "@/Composables/success.js";
-
-const props = defineProps({
-    episode: Object,
-    success: Object
+defineProps({
+    episode: Object
 });
-
-useSuccessProps(props.success);
 </script>
 
 <template>

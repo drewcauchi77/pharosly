@@ -1,12 +1,16 @@
 <script setup>
-import { useSuccessProps } from "@/Composables/success.js";
+import {onMounted} from "vue";
+import {usePage} from "@inertiajs/vue3";
 
-const props = defineProps({
+defineProps({
     auth: Object,
-    success: Object
 });
 
-useSuccessProps(props.success);
+const $page = usePage();
+
+onMounted(() => {
+    console.log($page.props)
+});
 </script>
 
 <template>

@@ -56,11 +56,9 @@ class EpisodeController extends Controller
 
         $episode = $createEpisode->handle($episodeDTO);
 
-        return redirect()->route('episodes.show', $episode)->with([
-            'success' => [
-                'title' => 'Episode Created',
-                'description' => 'Your new episode is now successfully created.'
-            ]
+        return redirect()->route('episodes.show', $episode)->with('notification', [
+            'title' => 'Episode Created',
+            'description' => "Your episode is now successfully created."
         ]);
     }
 
