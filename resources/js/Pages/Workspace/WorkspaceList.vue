@@ -4,7 +4,10 @@ import LinkItem from "@/Components/Elements/LinkItem.vue";
 import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import {router} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
+import {ref} from "vue";
+
+const openModal = ref(false);
 
 defineProps({
     workspaces: Object
@@ -21,6 +24,20 @@ const columns = [
 
 const switchWorkspace = (episodeId) => {
     router.post(route('workspaces.switch', episodeId));
+};
+
+const form = useForm({
+    workspaceId: null,
+    password: ''
+});
+
+const openDeleteModal = (id) => {
+    openModal.value = true;
+    form.workspaceId = id;
+};
+
+const deleteWorkspace = () => {
+    form.delete(route('workspaces.destroy', form.workspaceId));
 }
 </script>
 
@@ -87,7 +104,9 @@ const switchWorkspace = (episodeId) => {
                         <i class="fa-solid fa-pencil"></i>
                     </LinkItem>
 
-                    <i class="fa-solid fa-trash text-primary cursor-pointer hover:text-primary-hover"></i>
+                    <i class="fa-solid fa-trash text-primary cursor-pointer hover:text-primary-hover"
+                        @click="openDeleteModal(item.id)"
+                    ></i>
                 </div>
             </template>
 
@@ -98,4 +117,21 @@ const switchWorkspace = (episodeId) => {
     </table>
 
     <PaginationLinks :paginator="workspaces" />
+
+    <div class="hidden fixed top-0 left-0 w-full h-full z-200 bg-alternate-opaque" :class="{ '!block' : openModal }">
+        <div class="bg-white w-95 h-fit p-5 absolute top-0 bottom-0 left-0 right-0 m-auto">
+            <h1>Are you sure?</h1>
+
+            <p>
+                Deleting a workspace is a <strong>destructive</strong> action. All data that is attributed to this workspace will also be deleted.
+                Users will not have access to this workspace any longer.
+            </p>
+
+            <form @submit.prevent class="flex flex-col">
+                <PrimaryButton @click="openModal = !openModal">Cancel</PrimaryButton>
+                <input type="password" placeholder="Enter your password" v-model="form.password">
+                <PrimaryButton class="!bg-red-500 !text-white" :disabled="form.password === ''" @click="deleteWorkspace">Delete</PrimaryButton>
+            </form>
+        </div>
+    </div>
 </template>

@@ -104,7 +104,10 @@ class WorkspaceController extends Controller
      */
     public function destroy(Workspace $workspace): void
     {
-        //
+        // Check the user password on deletion
+        // Only delete a workspace when it is not the last workspace, there has to be always a workspace attributed
+        // On deletion, set the workspace id in the session to the oldest workspace available
+        dd($workspace);
     }
 
     /**
