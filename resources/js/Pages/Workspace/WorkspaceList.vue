@@ -4,10 +4,13 @@ import LinkItem from "@/Components/Elements/LinkItem.vue";
 import TableBody from "@/Components/Lists/TableBody.vue";
 import PaginationLinks from "@/Components/Lists/PaginationLinks.vue";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
+import InputField from "@/Components/Fields/InputField.vue";
 import {router, useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 
 const openModal = ref(false);
+const workspaceIdToDelete = ref(null);
+const showPasswordSection = ref(false);
 
 defineProps({
     workspaces: Object
@@ -27,17 +30,24 @@ const switchWorkspace = (episodeId) => {
 };
 
 const form = useForm({
-    workspaceId: null,
     password: ''
 });
 
 const openDeleteModal = (id) => {
     openModal.value = true;
-    form.workspaceId = id;
+    workspaceIdToDelete.value = id;
+};
+
+const closeDeleteModal = () => {
+    openModal.value = false;
+    workspaceIdToDelete.value = null;
 };
 
 const deleteWorkspace = () => {
-    form.delete(route('workspaces.destroy', form.workspaceId));
+    form.delete(route('workspaces.destroy', workspaceIdToDelete.value), {
+        onFinish: () => form.reset('password'),
+        onSuccess: () => closeDeleteModal()
+    });
 }
 </script>
 
@@ -118,20 +128,42 @@ const deleteWorkspace = () => {
 
     <PaginationLinks :paginator="workspaces" />
 
-    <div class="hidden fixed top-0 left-0 w-full h-full z-200 bg-alternate-opaque" :class="{ '!block' : openModal }">
-        <div class="bg-white w-95 h-fit p-5 absolute top-0 bottom-0 left-0 right-0 m-auto">
-            <h1>Are you sure?</h1>
+    <div class="hidden fixed top-0 left-0 w-full h-full z-200 bg-alternate-opaque" :class="{ '!block' : openModal }" @click.self="closeDeleteModal">
+        <div class="w-full max-w-lg h-fit p-5 absolute top-0 bottom-0 left-0 right-0 m-auto">
+            <div class="p-5 bg-white rounded-sm">
+                <h3 class="text-center mb-5 !text-lg !font-bold">Are you sure?</h3>
 
-            <p>
-                Deleting a workspace is a <strong>destructive</strong> action. All data that is attributed to this workspace will also be deleted.
-                Users will not have access to this workspace any longer.
-            </p>
+                <p class="mb-5 text-sm">
+                    Deleting a workspace is a <strong class="!font-bold">destructive</strong> action. All data that is attributed to this workspace will also be deleted.
+                    Users will not have access to this workspace any longer.
+                </p>
 
-            <form @submit.prevent class="flex flex-col">
-                <PrimaryButton @click="openModal = !openModal">Cancel</PrimaryButton>
-                <input type="password" placeholder="Enter your password" v-model="form.password">
-                <PrimaryButton class="!bg-red-500 !text-white" :disabled="form.password === ''" @click="deleteWorkspace">Delete</PrimaryButton>
-            </form>
+                <div class="flex gap-4 flex-col sm:flex-row">
+                    <PrimaryButton :is-secondary="true" @click="closeDeleteModal">Cancel</PrimaryButton>
+                    <PrimaryButton @click="showPasswordSection = true">Yes</PrimaryButton>
+                </div>
+
+                <form @submit.prevent="deleteWorkspace" class="flex flex-col mt-5" v-show="showPasswordSection">
+                    <p class="mb-4 text-sm">To confirm deletion, please enter your password.</p>
+
+                    <InputField
+                        v-model="form.password"
+                        label="Password"
+                        id="password"
+                        type="password"
+                        placeholder="••••••••"
+                        icon="lock"
+                        :isRequired="true"
+                    />
+
+                    <PrimaryButton
+                        type="submit"
+                        @click="deleteWorkspace"
+                        :disabled="form.password == ''"
+                        class="!bg-error hover:bg-error-hover !text-error-text !font-bold"
+                    >Confirm Deletion</PrimaryButton>
+                </form>
+            </div>
         </div>
     </div>
 </template>

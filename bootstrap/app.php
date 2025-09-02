@@ -43,11 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
             }
             else
             {
-                return redirect()->back()->with('notification', [
-                    'isError' => true,
-                    'title' => 'Unexpected Error',
-                    'description' => 'An unexpected error has occurred - please try again later.',
-                ]);
+                return $response;
             }
 
             return $response;

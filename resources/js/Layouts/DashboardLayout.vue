@@ -60,7 +60,7 @@ watch($page, () => {
         </div>
     </main>
 
-    <div class="fixed bottom-4 right-4 mx-4 sm:m-0 flex flex-col gap-2 items-stretch sm:items-end">
+    <div class="fixed bottom-4 right-4 mx-4 sm:m-0 flex flex-col gap-2 items-stretch sm:items-end z-500">
         <transition-group
             enter-active-class="transition transform duration-300 ease-out"
             leave-active-class="transition transform duration-200 ease-in"

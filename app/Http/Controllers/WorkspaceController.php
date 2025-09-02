@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Actions\Workspace\SetWorkspaceAction;
 use App\DTO\WorkspaceDTO;
+use App\Http\Requests\Workspace\DestroyWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\User;
 use App\Models\Workspace;
+use Hamcrest\Core\Set;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -60,11 +63,11 @@ class WorkspaceController extends Controller
             $user->id
         );
 
-        $createWorkspace->handle($workspaceDTO);
+        $workspace = $createWorkspace->handle($workspaceDTO);
 
-        return redirect()->route('episodes.index')->with('notification', [
+        return redirect()->route('workspaces.index')->with('notification', [
             'title' => 'Workspace created',
-            'description' => 'Workspace {name} successfully created.'
+            'description' => "Workspace '{$workspace->name}' successfully created."
         ]);
     }
 
@@ -99,15 +102,34 @@ class WorkspaceController extends Controller
     }
 
     /**
+     * @param DestroyWorkspaceRequest $request
      * @param Workspace $workspace
-     * @return void
+     * @return RedirectResponse
      */
-    public function destroy(Workspace $workspace): void
+    public function destroy(
+        DestroyWorkspaceRequest $request,
+        Workspace $workspace
+    ): RedirectResponse
     {
         // Check the user password on deletion
-        // Only delete a workspace when it is not the last workspace, there has to be always a workspace attributed
-        // On deletion, set the workspace id in the session to the oldest workspace available
-        dd($workspace);
+        if (!Hash::check($request->validated('password'), Auth::user()->password))
+        {
+            return redirect()->back()->withErrors(['password' => 'Wrong password']);
+        }
+
+        if (Auth::user()->workspaces()->count() == 1)
+        {
+            return redirect()->back()->withErrors(['minimum_workspaces' => 'You are required to have at least 1 workspace under your account.']);
+        }
+
+        Workspace::destroy($workspace->id);
+
+        (new SetWorkspaceAction())->handle();
+
+        return redirect()->route('workspaces.index')->with('notification', [
+            'title' => 'Deletion Successful',
+            'description' => "Workspace '{$workspace->name}' has been successfully deleted."
+        ]);
     }
 
     /**
