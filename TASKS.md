@@ -21,7 +21,10 @@
 
 
 DELETION WORKSPACES
-1. Split code into digestible sections
+1. Split code into digestible sections ✅
 2. Externalise modal for reusability
-3. Error messages on the modal (style them better)
+3. Error messages on the modal (style them better) ✅
 4. Double check all code implementation, closure, buttons
+
+
+1. To tackle SuccessMessage duplicate in Layouts

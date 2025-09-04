@@ -18,15 +18,15 @@ final readonly class SetWorkspaceAction
         $user = Auth::user();
 
         $workspaces = $user->workspaces();
-        $mainWorkspaceId = $workspaces->oldest()->value('id');
+        $mainWorkspaceId = $workspaces->oldest()->value('id') ?? null;
         $this->switch($mainWorkspaceId);
     }
 
     /**
-     * @param int $workspaceId
+     * @param int|null $workspaceId
      * @return void
      */
-    public function switch(int $workspaceId): void
+    public function switch(?int $workspaceId): void
     {
         Session::put('workspace_id', $workspaceId);
     }

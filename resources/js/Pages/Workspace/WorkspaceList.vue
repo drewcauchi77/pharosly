@@ -7,13 +7,16 @@ import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import {router, useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
+import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 
 const openModal = ref(false);
 const workspaceIdToDelete = ref(null);
 const showPasswordSection = ref(false);
 
 defineProps({
-    workspaces: Object
+    workspaces: Object,
+    errors: Object
 });
 
 const columns = [
@@ -39,7 +42,9 @@ const openDeleteModal = (id) => {
 };
 
 const closeDeleteModal = () => {
+    form.password = '';
     openModal.value = false;
+    showPasswordSection.value = false;
     workspaceIdToDelete.value = null;
 };
 
@@ -143,7 +148,7 @@ const deleteWorkspace = () => {
                     <PrimaryButton @click="showPasswordSection = true">Yes</PrimaryButton>
                 </div>
 
-                <form @submit.prevent="deleteWorkspace" class="flex flex-col mt-5" v-show="showPasswordSection">
+                <form @submit.prevent="deleteWorkspace" class="flex flex-col mt-5" v-if="showPasswordSection">
                     <p class="mb-4 text-sm">To confirm deletion, please enter your password.</p>
 
                     <InputField
@@ -156,12 +161,18 @@ const deleteWorkspace = () => {
                         :isRequired="true"
                     />
 
-                    <PrimaryButton
-                        type="submit"
-                        @click="deleteWorkspace"
-                        :disabled="form.password == ''"
-                        class="!bg-error hover:bg-error-hover !text-error-text !font-bold"
-                    >Confirm Deletion</PrimaryButton>
+                    <ErrorMessages :errors="errors" />
+
+                    <SubmitButton
+                        :is-disabled="form.processing"
+                        class="!bg-error hover:bg-error-hover !text-error-text !font-bold">
+                        <template v-slot:disable>
+                            Deleting...
+                        </template>
+                        <template v-slot:able>
+                            Confirm Deletion
+                        </template>
+                    </SubmitButton>
                 </form>
             </div>
         </div>

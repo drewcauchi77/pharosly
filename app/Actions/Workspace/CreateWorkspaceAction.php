@@ -3,7 +3,9 @@
 namespace App\Actions\Workspace;
 
 use App\DTO\WorkspaceDTO;
+use App\Models\User;
 use App\Models\Workspace;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 final readonly class CreateWorkspaceAction
@@ -15,8 +17,18 @@ final readonly class CreateWorkspaceAction
     public function handle(WorkspaceDTO $attributes): Workspace
     {
         return DB::transaction(function () use ($attributes) {
-            return Workspace::query()
+            $workspace = Workspace::query()
                 ->create($attributes->toArray());
+
+            /** @var User $user */
+            $user = Auth::user();
+
+            if ($user->workspaces()->count() == 1)
+            {
+                (new SetWorkspaceAction())->switch($workspace->id);
+            }
+
+            return $workspace;
         });
     }
 }

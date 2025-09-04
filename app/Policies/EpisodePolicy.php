@@ -12,7 +12,7 @@ class EpisodePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->workspaces()->exists();
+        return true;
     }
 
     /**
@@ -28,6 +28,7 @@ class EpisodePolicy
      */
     public function create(User $user): bool
     {
+        // Cannot create a new episode unless a workspace exists
         return false;
     }
 

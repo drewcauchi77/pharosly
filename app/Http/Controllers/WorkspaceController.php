@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Auth\CheckPasswordAction;
 use App\Actions\Workspace\CreateWorkspaceAction;
+use App\Actions\Workspace\DeleteWorkspaceAction;
 use App\Actions\Workspace\SetWorkspaceAction;
 use App\DTO\WorkspaceDTO;
 use App\Http\Requests\Workspace\DestroyWorkspaceRequest;
@@ -104,25 +106,25 @@ class WorkspaceController extends Controller
     /**
      * @param DestroyWorkspaceRequest $request
      * @param Workspace $workspace
+     * @param CheckPasswordAction $checkPassword
+     * @param DeleteWorkspaceAction $deleteWorkspace
      * @return RedirectResponse
      */
     public function destroy(
         DestroyWorkspaceRequest $request,
-        Workspace $workspace
+        Workspace $workspace,
+        CheckPasswordAction $checkPassword,
+        DeleteWorkspaceAction $deleteWorkspace
     ): RedirectResponse
     {
-        // Check the user password on deletion
-        if (!Hash::check($request->validated('password'), Auth::user()->password))
+        if (!$checkPassword->handle($request->validated('password')))
         {
-            return redirect()->back()->withErrors(['password' => 'Wrong password']);
+            return redirect()->back()->withErrors([
+                'password' => 'Password is incorrect - please try again.'
+            ]);
         }
 
-        if (Auth::user()->workspaces()->count() == 1)
-        {
-            return redirect()->back()->withErrors(['minimum_workspaces' => 'You are required to have at least 1 workspace under your account.']);
-        }
-
-        Workspace::destroy($workspace->id);
+        $deleteWorkspace->handle($workspace->id);
 
         (new SetWorkspaceAction())->handle();
 
@@ -147,7 +149,7 @@ class WorkspaceController extends Controller
 
         return redirect()->route('episodes.index')->with('notification', [
             'title' => 'Workspace switched',
-            'description' => "Workspace {name} successfully switched."
+            'description' => "Switched to workspace '{$workspace->name}' successfully."
         ]);
     }
 }
