@@ -17,7 +17,7 @@
 17. Remove the comments from the PHPDOC ✅
 18. Create a DTO in Actions as first parameter (IMPORTANT SCREENSHOTS/DTOs) (auth remains)
 19. Fillables to remove? ✅
-20. Replace policies
+20. Replace policies (episode remaining)
 
 
 DELETION WORKSPACES

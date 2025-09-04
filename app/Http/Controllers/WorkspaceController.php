@@ -9,6 +9,7 @@ use App\Actions\Workspace\SetWorkspaceAction;
 use App\DTO\WorkspaceDTO;
 use App\Http\Requests\Workspace\DestroyWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
+use App\Http\Requests\Workspace\SwitchWorkspaceRequest;
 use App\Http\Requests\Workspace\UpdateWorkspaceRequest;
 use App\Models\User;
 use App\Models\Workspace;
@@ -135,16 +136,17 @@ class WorkspaceController extends Controller
     }
 
     /**
+     * @param SwitchWorkspaceRequest $request
      * @param Workspace $workspace
      * @param SetWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
     public function switch(
+        SwitchWorkspaceRequest $request,
         Workspace $workspace,
         SetWorkspaceAction $setWorkspace
     ): RedirectResponse
     {
-        Gate::authorize('switch', $workspace);
         $setWorkspace->switch($workspace->id);
 
         return redirect()->route('episodes.index')->with('notification', [

@@ -7,7 +7,7 @@ use App\Models\Workspace;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreWorkspaceRequest extends FormRequest
+class SwitchWorkspaceRequest extends FormRequest
 {
     /**
      * @param User $user
@@ -25,7 +25,7 @@ class StoreWorkspaceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:255']
+            //
         ];
     }
 }
