@@ -23,7 +23,6 @@ const columns = [
     { key: 'name' },
     { key: 'episodes' },
     { key: 'series' },
-    { key: 'users' },
     { key: 'labels' },
     { key: 'actions' }
 ];
@@ -63,73 +62,70 @@ const deleteWorkspace = () => {
 
     <LinkItem routeName="workspaces.create">New Workspace</LinkItem>
 
-    <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0">
-        <thead class="bg-light-blue">
-            <tr class="text-sm text-left">
-                <th class="p-3 border border-light-blue !font-medium">Name</th>
-                <th class="p-3 border border-light-blue !font-medium">Episodes</th>
-                <th class="p-3 border border-light-blue !font-medium">Series</th>
-                <th class="p-3 border border-light-blue !font-medium">Users</th>
-                <th class="p-3 border border-light-blue !font-medium">Labels</th>
-                <th class="p-3 border border-light-blue !font-medium">Actions</th>
-            </tr>
-        </thead>
+    <div class="w-full overflow-x-auto">
+        <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0 min-w-3xl">
+            <thead class="bg-light-blue">
+                <tr class="text-sm text-left">
+                    <th class="p-3 border border-light-blue !font-medium">Name</th>
+                    <th class="p-3 border border-light-blue !font-medium">Episodes</th>
+                    <th class="p-3 border border-light-blue !font-medium">Series</th>
+                    <th class="p-3 border border-light-blue !font-medium">Labels</th>
+                    <th class="p-3 border border-light-blue !font-medium">Actions</th>
+                </tr>
+            </thead>
 
-        <TableBody
-            :items="workspaces.data"
-            :columns="columns"
-        >
-            <template #cell-name="{ item }">
-                <div class="flex items-center gap-3">
-                    <div class="relative rounded-full ring-2 ring-offset-1 ring-text bg-white p-0.25">
-                        <img :src="item.image" :alt="item.name" class="rounded-full w-10 h-10 bg-gray-400"/>
+            <TableBody
+                :items="workspaces.data"
+                :columns="columns"
+            >
+                <template #cell-name="{ item }">
+                    <div class="flex items-center gap-3">
+                        <div class="relative rounded-full ring-2 ring-offset-1 ring-text bg-white p-0.25 flex-none">
+                            <img :src="item.image" :alt="item.name" class="rounded-full w-10 h-10 bg-gray-400"/>
+                        </div>
+
+                        <span class="text-sm">{{ item.name }}</span>
                     </div>
+                </template>
 
-                    <span class="text-sm">{{ item.name }}</span>
-                </div>
-            </template>
+                <template #cell-episodes="{ item }">
+                    <span class="text-sm">{{ item.episodesCount }}</span>
+                </template>
 
-            <template #cell-episodes="{ item }">
-                <span class="text-sm">{{ item.episodesCount }}</span>
-            </template>
+                <template #cell-series="{ item }">
+                    <span class="text-sm">-</span>
+                </template>
 
-            <template #cell-series="{ item }">
-                <span class="text-sm">-</span>
-            </template>
+                <template #cell-labels="{ value }">
+                    <span class="text-sm">Labels</span>
+                </template>
 
-            <template #cell-users="{ item }">
-                <span class="text-sm">{{ item.usersCount }}</span>
-            </template>
+                <template #cell-actions="{ item }">
+                    <div class="flex gap-3 items-center">
+                        <PrimaryButton class="!w-fit" v-if="item.isCurrent" disabled>
+                            Current Workspace
+                        </PrimaryButton>
 
-            <template #cell-labels="{ value }">
-                <span class="text-sm">Labels</span>
-            </template>
+                        <PrimaryButton class="!w-fit" @click="switchWorkspace(item.id)" v-else>
+                            Switch Workspace
+                        </PrimaryButton>
 
-            <template #cell-actions="{ item }">
-                <div class="flex gap-3 items-center">
-                    <PrimaryButton class="!w-fit" v-if="item.isCurrent" disabled>
-                        Current Workspace
-                    </PrimaryButton>
+                        <LinkItem routeName="workspaces.edit" :routeValue="item.id">
+                            <i class="fa-solid fa-pencil"></i>
+                        </LinkItem>
 
-                    <PrimaryButton class="!w-fit" @click="switchWorkspace(item.id)" v-else>
-                        Switch Workspace
-                    </PrimaryButton>
+                        <i class="fa-solid fa-trash text-primary cursor-pointer hover:text-primary-hover"
+                            @click="openDeleteModal(item.id)"
+                        ></i>
+                    </div>
+                </template>
 
-                    <LinkItem routeName="workspaces.edit" :routeValue="item.id">
-                        <i class="fa-solid fa-pencil"></i>
-                    </LinkItem>
-
-                    <i class="fa-solid fa-trash text-primary cursor-pointer hover:text-primary-hover"
-                        @click="openDeleteModal(item.id)"
-                    ></i>
-                </div>
-            </template>
-
-            <template #empty>
-                Nothing to show yet.
-            </template>
-        </TableBody>
-    </table>
+                <template #empty>
+                    Nothing to show yet.
+                </template>
+            </TableBody>
+        </table>
+    </div>
 
     <PaginationLinks :paginator="workspaces" />
 

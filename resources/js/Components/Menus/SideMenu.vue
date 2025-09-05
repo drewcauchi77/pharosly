@@ -1,8 +1,5 @@
 <script setup>
 import MenuGroup from "@/Components/Menus/MenuGroup.vue";
-import {useStatusStore} from "@/State/status.store.js";
-
-const statusStore = useStatusStore();
 </script>
 
 <template>

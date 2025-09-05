@@ -36,7 +36,6 @@ class Workspace extends Model
     protected $appends = [
         'image',
         'episodesCount',
-        'usersCount',
         'isCurrent'
     ];
 

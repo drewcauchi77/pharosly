@@ -52,14 +52,14 @@ watch($page, () => {
                 <SideMenu />
             </div>
 
-            <div class="lg:ml-[256px]">
-            <span
-                @click="statusStore.setIsMenuOpen(!statusStore.isMenuOpen)"
-                class="cursor-pointer"
-            >
-                Open Menu
-            </span>
-                <div class="p-5 max-w-[1680px] mx-auto">
+            <div class="lg:ml-[256px] overflow-hidden">
+                <span
+                    @click="statusStore.setIsMenuOpen(!statusStore.isMenuOpen)"
+                    class="cursor-pointer"
+                >
+                    Open Menu
+                </span>
+                <div class="p-5 max-w-[1680px] mx-auto w-screen lg:w-full">
                     <slot />
                 </div>
             </div>
