@@ -53,4 +53,4 @@ jobs:
         run: ./vendor/bin/pest
 
       - name: Bug Coverage
-        run: ./vendor/bin/phpstan
+        run: ./vendor/bin/phpstan --memory-limit=-1
