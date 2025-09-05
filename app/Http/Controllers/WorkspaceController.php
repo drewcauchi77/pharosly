@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -127,12 +128,24 @@ class WorkspaceController extends Controller
 
         $deleteWorkspace->handle($workspace->id);
 
-        (new SetWorkspaceAction())->handle();
+        $notifications = [
+            [
+                'title' => 'Deletion Successful',
+                'description' => "Workspace '{$workspace->name}' has been successfully deleted."
+            ]
+        ];
 
-        return redirect()->route('workspaces.index')->with('notification', [
-            'title' => 'Deletion Successful',
-            'description' => "Workspace '{$workspace->name}' has been successfully deleted."
-        ]);
+        if ($workspace->id === Session::get('workspace_id'))
+        {
+            $switchedWorkspace = (new SetWorkspaceAction())->handle();
+
+            $notifications[] = [
+                'title' => 'Workspace switched',
+                'description' => "Switched to workspace '{$switchedWorkspace->name}' successfully."
+            ];
+        }
+
+        return redirect()->back()->with('notification', $notifications);
     }
 
     /**
@@ -149,7 +162,7 @@ class WorkspaceController extends Controller
     {
         $setWorkspace->switch($workspace->id);
 
-        return redirect()->route('episodes.index')->with('notification', [
+        return redirect()->back()->with('notification', [
             'title' => 'Workspace switched',
             'description' => "Switched to workspace '{$workspace->name}' successfully."
         ]);

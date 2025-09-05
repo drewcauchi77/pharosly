@@ -13,13 +13,19 @@ const $page = usePage();
 
 watch($page, () => {
     if ($page.props?.flash?.notification) {
-        notificationStore.pushNotification(
-            Object.assign(
-                {},
-                $page.props?.flash?.notification,
-                { id: Date.now() + Math.random() }
-            )
-        );
+        const notifications = Array.isArray($page.props.flash.notification)
+            ? $page.props.flash.notification
+            : [$page.props.flash.notification];
+
+        notifications.forEach(notification => {
+            notificationStore.pushNotification(
+                Object.assign(
+                    {},
+                    notification,
+                    { id: Date.now() + Math.random() }
+                )
+            );
+        });
     }
 });
 </script>

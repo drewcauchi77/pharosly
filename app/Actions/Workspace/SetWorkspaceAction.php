@@ -4,15 +4,16 @@ namespace App\Actions\Workspace;
 
 use App\Actions\Auth\LogoutUserAction;
 use App\Models\User;
+use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 final readonly class SetWorkspaceAction
 {
     /**
-     * @return void
+     * @return Workspace
      */
-    public function handle(): void
+    public function handle(): Workspace
     {
         /** @var User $user */
         $user = Auth::user();
@@ -20,6 +21,9 @@ final readonly class SetWorkspaceAction
         $workspaces = $user->workspaces();
         $mainWorkspaceId = $workspaces->oldest()->value('id') ?? null;
         $this->switch($mainWorkspaceId);
+
+        return Workspace::query()
+            ->where('id', $mainWorkspaceId)->firstOrFail();
     }
 
     /**
