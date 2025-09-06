@@ -2,11 +2,11 @@
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import InputField from "@/Components/Fields/InputField.vue";
-import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import { useForm } from "@inertiajs/vue3";
-import StatusMessages from "@/Components/Elements/StatusMessages.vue";
+import SuccessMessages from "@/Components/Statuses/SuccessMessages.vue";
 
 defineProps({
     errors: Object,
@@ -42,7 +42,7 @@ const submit = () => {
 
         <ErrorMessages :errors="errors" />
 
-        <StatusMessages :status="status" />
+        <SuccessMessages :status="status" />
 
         <SubmitButton :is-disabled="form.processing">
             <template v-slot:disable>

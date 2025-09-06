@@ -1,6 +1,6 @@
 <script setup>
 import InputField from "@/Components/Fields/InputField.vue";
-import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import LinkItem from "@/Components/Elements/LinkItem.vue";

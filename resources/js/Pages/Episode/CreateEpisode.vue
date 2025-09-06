@@ -2,7 +2,7 @@
 import InputField from "@/Components/Fields/InputField.vue";
 import { useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
-import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
 import Loading from "@/Components/Icons/Loading.vue";
 
 defineProps({

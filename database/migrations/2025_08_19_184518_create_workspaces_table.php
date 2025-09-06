@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('workspaces', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('labels')->nullable()->default(null);
+            $table->string('internal_domain')->unique();
+            $table->string('domain')->nullable()->default(null)->unique();
+            $table->string('path')->nullable()->default(null);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

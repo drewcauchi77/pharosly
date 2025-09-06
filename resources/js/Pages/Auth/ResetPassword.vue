@@ -2,7 +2,7 @@
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import InputField from "@/Components/Fields/InputField.vue";
-import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({

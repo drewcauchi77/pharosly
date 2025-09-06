@@ -19,6 +19,10 @@ class WorkspaceFactory extends Factory
         return [
             'name' => $this->faker->words(2, true),
             'user_id' => User::factory(),
+            'labels' => null,
+            'internal_domain' => $this->faker->url(),
+            'domain' => null,
+            'path' => null
         ];
     }
 }

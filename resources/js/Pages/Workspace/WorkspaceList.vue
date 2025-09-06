@@ -7,8 +7,9 @@ import PrimaryButton from "@/Components/Elements/PrimaryButton.vue";
 import InputField from "@/Components/Fields/InputField.vue";
 import {router, useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
-import ErrorMessages from "@/Components/Elements/ErrorMessages.vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
+import PageHeader from "@/Components/Elements/PageHeader.vue";
 
 const openModal = ref(false);
 const workspaceIdToDelete = ref(null);
@@ -58,9 +59,14 @@ const deleteWorkspace = () => {
 <template>
     <Head title="Workspaces" />
 
-    <PageTitle title="Workspaces" description="A list of workspaces that you have created and you can also switch workspaces." class="text-left" />
-
-    <LinkItem routeName="workspaces.create">New Workspace</LinkItem>
+    <PageHeader
+        title="Workspaces"
+        description="A list of workspaces that you have created and you can also switch workspaces."
+        route-name="workspaces.create"
+    >
+        <i class="fa-solid fa-plus text-xs"></i>
+        <span class="!font-medium whitespace-nowrap">New Workspace</span>
+    </PageHeader>
 
     <div class="w-full overflow-x-auto">
         <table class="w-full mt-5 rounded-t-lg border-separate border border-light-blue border-spacing-0 min-w-3xl">
