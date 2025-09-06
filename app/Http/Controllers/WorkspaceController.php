@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Auth\CheckPasswordAction;
 use App\Actions\Workspace\CreateWorkspaceAction;
-use App\Actions\Workspace\DeleteWorkspaceAction;
+use App\Actions\Workspace\DestroyWorkspaceAction;
 use App\Actions\Workspace\SetWorkspaceAction;
 use App\DTO\WorkspaceDTO;
 use App\Http\Requests\Workspace\DestroyWorkspaceRequest;
@@ -109,14 +109,14 @@ class WorkspaceController extends Controller
      * @param DestroyWorkspaceRequest $request
      * @param Workspace $workspace
      * @param CheckPasswordAction $checkPassword
-     * @param DeleteWorkspaceAction $deleteWorkspace
+     * @param DestroyWorkspaceAction $destroyWorkspace
      * @return RedirectResponse
      */
     public function destroy(
         DestroyWorkspaceRequest $request,
         Workspace $workspace,
         CheckPasswordAction $checkPassword,
-        DeleteWorkspaceAction $deleteWorkspace
+        DestroyWorkspaceAction $destroyWorkspace
     ): RedirectResponse
     {
         if (!$checkPassword->handle($request->validated('password')))
@@ -126,24 +126,7 @@ class WorkspaceController extends Controller
             ]);
         }
 
-        $deleteWorkspace->handle($workspace->id);
-
-        $notifications = [
-            [
-                'title' => 'Deletion Successful',
-                'description' => "Workspace '{$workspace->name}' has been successfully deleted."
-            ]
-        ];
-
-        if ($workspace->id === Session::get('workspace_id'))
-        {
-            $switchedWorkspace = (new SetWorkspaceAction())->handle();
-
-            $notifications[] = [
-                'title' => 'Workspace switched',
-                'description' => "Switched to workspace '{$switchedWorkspace->name}' successfully."
-            ];
-        }
+        $notifications = $destroyWorkspace->handle($workspace)->withNotifications();
 
         return redirect()->back()->with('notification', $notifications);
     }

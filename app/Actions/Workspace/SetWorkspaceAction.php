@@ -11,19 +11,22 @@ use Illuminate\Support\Facades\Session;
 final readonly class SetWorkspaceAction
 {
     /**
-     * @return Workspace
+     * @return Workspace|null
      */
-    public function handle(): Workspace
+    public function handle(): Workspace|null
     {
         /** @var User $user */
         $user = Auth::user();
 
-        $workspaces = $user->workspaces();
-        $mainWorkspaceId = $workspaces->oldest()->value('id') ?? null;
-        $this->switch($mainWorkspaceId);
+        $oldestWorkspace = $user->workspaces()->oldest()->first();
 
-        return Workspace::query()
-            ->where('id', $mainWorkspaceId)->firstOrFail();
+        if ($oldestWorkspace)
+        {
+            $this->switch($oldestWorkspace->id);
+            return $oldestWorkspace;
+        }
+
+        return null;
     }
 
     /**
