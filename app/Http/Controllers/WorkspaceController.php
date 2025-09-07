@@ -73,19 +73,10 @@ class WorkspaceController extends Controller
 
         $workspace = $createWorkspace->handle($workspaceDTO);
 
-        return redirect()->route('workspaces.index')->with('notification', [
+        return redirect()->route('workspaces.edit', $workspace)->with('notification', [
             'title' => 'Workspace created',
             'description' => "Workspace '{$workspace->name}' successfully created."
         ]);
-    }
-
-    /**
-     * @param Workspace $workspace
-     * @return void
-     */
-    public function show(Workspace $workspace): void
-    {
-        //
     }
 
     /**

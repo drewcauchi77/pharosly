@@ -1,10 +1,14 @@
 <script setup>
+import {ref, watch} from "vue";
+
+const withErrorFocus = ref(false);
 const model = defineModel();
 
-defineProps({
+const props = defineProps({
     label: String,
     id: String,
     placeholder: String,
+    hasError: Boolean,
     isRequired: Boolean,
     type: {
         type: String,
@@ -14,6 +18,10 @@ defineProps({
         type: String,
         default: 'account'
     }
+});
+
+watch(() => props.hasError, (newValue) => {
+    withErrorFocus.value = newValue;
 });
 </script>
 
@@ -31,6 +39,7 @@ defineProps({
             </div>
 
             <input
+                @focus="withErrorFocus = false"
                 :required="isRequired"
                 :id="id"
                 :type="type"
@@ -38,6 +47,7 @@ defineProps({
                 :placeholder="placeholder"
                 v-model="model"
                 class="block w-full rounded-sm bg-white pr-3 pl-13 py-2.5 border-alternate-opaque text-sm text-text placeholder:text-alternate focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary transition-colors duration-200"
+                :class="{ 'ring-2 ring-offset-1 ring-error-text' : withErrorFocus }"
                 :aria-describedby="`${id}-description`"
             />
         </div>

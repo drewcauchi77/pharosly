@@ -5,15 +5,25 @@ import {useForm} from "@inertiajs/vue3";
 import PageTitle from "@/Components/Elements/PageTitle.vue";
 import SubmitButton from "@/Components/Forms/SubmitButton.vue";
 import {ref} from "vue";
+import ErrorMessages from "@/Components/Statuses/ErrorMessages.vue";
+
+const props = defineProps({
+    title: String,
+    description: String,
+    buttonName: String,
+    disabledButtonName: String,
+    presetValues: Object,
+    errors: Object
+});
 
 const labelsInput = ref('');
 
 const form = useForm({
-    name: '',
-    labels: [],
-    subdomain: '',
-    domain: '',
-    path: '/'
+    name: props.presetValues?.name ?? '',
+    labels: props.presetValues?.labels ?? [],
+    subdomain: props.presetValues?.subdomain ?? '',
+    domain: props.presetValues?.domain ?? '',
+    path: props.presetValues?.path ?? '/'
 });
 
 const submit = () => {
@@ -41,16 +51,20 @@ const removeItem = (label) => {
 <template>
     <Head title="New Workspace" />
 
-    <PageTitle title="Create Workspace" description="You can create a new workspace with all the details required." class="text-left" />
+    <PageTitle
+        :title="title ?? 'Create Workspace'"
+        :description="description ?? 'You can create a new workspace with all the details required.'"
+        class="text-left" />
 
     <form @submit.prevent="submit">
         <InputField
             v-model="form.name"
             label="Workspace Name"
-            id="workspace"
+            id="name"
             type="text"
             placeholder="Acme Space"
             icon="briefcase"
+            :has-error="errors?.hasOwnProperty('name')"
             :is-required="true"
         />
 
@@ -63,6 +77,7 @@ const removeItem = (label) => {
                     type="text"
                     placeholder="AI, E-commerce, Certification"
                     icon="tags"
+                    :has-error="errors?.hasOwnProperty('labels')"
                     @keyup="splitToArray"
                 />
 
@@ -84,11 +99,12 @@ const removeItem = (label) => {
             <div>
                 <InputField
                     v-model="form.subdomain"
-                    label="Pharosly Subdomain"
-                    id="domain"
+                    label="Our Subdomain"
+                    id="subdomain"
                     type="text"
-                    placeholder="acme-space.pharosly.com"
+                    placeholder="acme-space"
                     icon="globe"
+                    :has-error="errors?.hasOwnProperty('subdomain')"
                     :is-required="true"
                 />
 
@@ -99,6 +115,7 @@ const removeItem = (label) => {
                     type="text"
                     placeholder="acme.com"
                     icon="globe"
+                    :has-error="errors?.hasOwnProperty('domain')"
                 />
 
                 <InputField
@@ -108,7 +125,10 @@ const removeItem = (label) => {
                     type="text"
                     placeholder="/academy/"
                     icon="sitemap"
+                    :has-error="errors?.hasOwnProperty('path')"
                 />
+
+                <ErrorMessages :errors="errors" />
             </div>
         </fieldset>
 
@@ -119,10 +139,10 @@ const removeItem = (label) => {
 
             <SubmitButton :is-disabled="form.processing" class="!w-fit">
                 <template v-slot:disable>
-                    Creating workspace...
+                    {{ disabledButtonName ?? 'Creating workspace...' }}
                 </template>
                 <template v-slot:able>
-                    Create
+                    {{ buttonName ?? 'Create' }}
                 </template>
             </SubmitButton>
         </div>
