@@ -56,7 +56,7 @@ final readonly class DestroyWorkspaceAction
 
         if ($this->workspace->id === Session::get('workspace_id'))
         {
-            $switchedWorkspace = (new SetWorkspaceAction())->handle();
+            $switchedWorkspace = (new SwitchWorkspaceAction())->handle();
 
             if ($switchedWorkspace)
             {

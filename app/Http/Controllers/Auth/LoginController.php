@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\LogoutUserAction;
-use App\Actions\Workspace\SetWorkspaceAction;
+use App\Actions\Workspace\SwitchWorkspaceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use Illuminate\Http\RedirectResponse;
@@ -23,12 +23,12 @@ class LoginController extends Controller
 
     /**
      * @param LoginUserRequest $request
-     * @param SetWorkspaceAction $setWorkspace
+     * @param SwitchWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
     public function store(
         LoginUserRequest $request,
-        SetWorkspaceAction $setWorkspace
+        SwitchWorkspaceAction $setWorkspace
     ): RedirectResponse
     {
         if (Auth::attempt($request->validated(), $request->boolean('remember')))

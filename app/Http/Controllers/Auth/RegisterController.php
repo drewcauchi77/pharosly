@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\User\CreateUserAction;
-use App\Actions\Workspace\SetWorkspaceAction;
+use App\Actions\Workspace\SwitchWorkspaceAction;
 use App\DTO\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterUserRequest;
@@ -25,13 +25,13 @@ class RegisterController extends Controller
     /**
      * @param RegisterUserRequest $request
      * @param CreateUserAction $createUser
-     * @param SetWorkspaceAction $setWorkspace
+     * @param SwitchWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
     public function store(
         RegisterUserRequest $request,
         CreateUserAction $createUser,
-        SetWorkspaceAction $setWorkspace
+        SwitchWorkspaceAction $setWorkspace
     ): RedirectResponse
     {
         $userDTO = new UserDTO(

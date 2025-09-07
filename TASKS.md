@@ -27,4 +27,4 @@ DELETION WORKSPACES
 4. Double check all code implementation, closure, buttons
 
 
-1. To tackle SuccessMessage duplicate in Layouts
+1. Domain logic 

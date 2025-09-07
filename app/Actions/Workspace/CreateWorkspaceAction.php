@@ -25,7 +25,7 @@ final readonly class CreateWorkspaceAction
 
             if ($user->workspaces()->count() == 1)
             {
-                (new SetWorkspaceAction())->switch($workspace->id);
+                (new SwitchWorkspaceAction())->switch($workspace->id);
             }
 
             return $workspace;

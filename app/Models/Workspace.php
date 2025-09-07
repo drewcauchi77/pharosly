@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Observers\WorkspaceObserver;
 use Database\Factories\WorkspaceFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +17,10 @@ use Psr\Container\NotFoundExceptionInterface;
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $labels
+ * @property string|null $internal_domain
+ * @property string|null $domain
+ * @property string|null $path
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -25,6 +31,7 @@ use Psr\Container\NotFoundExceptionInterface;
  * @property-read User $user
  * @property-read Collection<int, Episode> $episodes
  */
+#[ObservedBy([WorkspaceObserver::class])]
 class Workspace extends Model
 {
     /** @use HasFactory<WorkspaceFactory> */

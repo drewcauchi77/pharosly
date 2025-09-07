@@ -102,8 +102,19 @@ const deleteWorkspace = () => {
                     <span class="text-sm">-</span>
                 </template>
 
-                <template #cell-labels="{ value }">
-                    <span class="text-sm">Labels</span>
+                <template #cell-labels="{ item }">
+                    <div class="flex flex-wrap gap-1">
+                        <template v-if="item.labels && JSON.parse(item.labels).length > 0">
+                            <span
+                                class="text-xs bg-input-icon-color px-2 py-1 rounded-sm"
+                                v-for="(label, index) in JSON.parse(item.labels)"
+                                :key="index"
+                            >
+                                {{ label }}
+                            </span>
+                        </template>
+                        <span v-else class="text-sm text-gray-400">-</span>
+                    </div>
                 </template>
 
                 <template #cell-actions="{ item }">

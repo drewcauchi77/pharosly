@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Auth\CheckPasswordAction;
 use App\Actions\Workspace\CreateWorkspaceAction;
 use App\Actions\Workspace\DestroyWorkspaceAction;
-use App\Actions\Workspace\SetWorkspaceAction;
+use App\Actions\Workspace\SwitchWorkspaceAction;
 use App\DTO\WorkspaceDTO;
 use App\Http\Requests\Workspace\DestroyWorkspaceRequest;
 use App\Http\Requests\Workspace\StoreWorkspaceRequest;
@@ -63,7 +63,11 @@ class WorkspaceController extends Controller
         $user = Auth::user();
 
         $workspaceDTO = new WorkspaceDTO(
-            $request->validated()['name'],
+            $request->validated('name'),
+            $request->validated('labels'),
+            $request->validated('internal_domain'),
+            $request->validated('domain'),
+            $request->validated('path'),
             $user->id
         );
 
@@ -134,13 +138,13 @@ class WorkspaceController extends Controller
     /**
      * @param SwitchWorkspaceRequest $request
      * @param Workspace $workspace
-     * @param SetWorkspaceAction $setWorkspace
+     * @param SwitchWorkspaceAction $setWorkspace
      * @return RedirectResponse
      */
     public function switch(
         SwitchWorkspaceRequest $request,
         Workspace $workspace,
-        SetWorkspaceAction $setWorkspace
+        SwitchWorkspaceAction $setWorkspace
     ): RedirectResponse
     {
         $setWorkspace->switch($workspace->id);

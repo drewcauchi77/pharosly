@@ -8,7 +8,7 @@ use App\Models\Workspace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-final readonly class SetWorkspaceAction
+final readonly class SwitchWorkspaceAction
 {
     /**
      * @return Workspace|null
