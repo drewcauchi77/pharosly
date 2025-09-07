@@ -20,7 +20,7 @@ class WorkspaceFactory extends Factory
             'name' => $this->faker->words(2, true),
             'user_id' => User::factory(),
             'labels' => json_encode([]),
-            'internal_domain' => null,
+            'subdomain' => null,
             'domain' => null,
             'path' => '/'
         ];

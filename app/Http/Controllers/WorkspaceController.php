@@ -65,7 +65,7 @@ class WorkspaceController extends Controller
         $workspaceDTO = new WorkspaceDTO(
             $request->validated('name'),
             $request->validated('labels'),
-            $request->validated('internal_domain'),
+            $request->validated('subdomain'),
             $request->validated('domain'),
             $request->validated('path'),
             $user->id

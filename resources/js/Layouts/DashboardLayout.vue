@@ -13,7 +13,7 @@ const statusStore = useStatusStore();
 
         <div class="grid pt-[30px]">
             <div
-                class="fixed bg-overlay w-full h-full lg:hidden transition-opacity duration-300 ease-in-out"
+                class="fixed bg-overlay w-full h-full lg:hidden transition-opacity duration-300 ease-in-out z-10"
                 :class="{ 'hidden' : !statusStore.isMenuOpen }"
                 @click="statusStore.setIsMenuOpen(!statusStore.isMenuOpen)"
             ></div>

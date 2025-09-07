@@ -14,17 +14,17 @@ class WorkspaceObserver
      */
     public function creating(Workspace $workspace): void
     {
-        if (empty($workspace->internal_domain)) {
+        if (empty($workspace->subdomain)) {
             $slug = Str::slug(Str::squish($workspace->name));
 
             // There can be duplicates still
-            if (Workspace::query()->where('internal_domain', $slug)->exists())
+            if (Workspace::query()->where('subdomain', $slug)->exists())
             {
                 $randomString = Str::random(10);
                 $slug = $slug . "-" . $randomString;
             }
 
-            $workspace->internal_domain = Str::lower($slug);
+            $workspace->subdomain = Str::lower($slug);
         }
     }
 }

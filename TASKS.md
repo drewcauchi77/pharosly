@@ -28,3 +28,4 @@ DELETION WORKSPACES
 
 
 1. Domain logic 
+2. Vuelidate

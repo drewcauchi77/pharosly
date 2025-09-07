@@ -18,7 +18,7 @@ use Psr\Container\NotFoundExceptionInterface;
  * @property int $id
  * @property string $name
  * @property string|null $labels
- * @property string|null $internal_domain
+ * @property string|null $subdomain
  * @property string|null $domain
  * @property string|null $path
  * @property int $user_id

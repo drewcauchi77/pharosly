@@ -11,7 +11,7 @@ const labelsInput = ref('');
 const form = useForm({
     name: '',
     labels: [],
-    internal_domain: '',
+    subdomain: '',
     domain: '',
     path: '/'
 });
@@ -83,8 +83,8 @@ const removeItem = (label) => {
 
             <div>
                 <InputField
-                    v-model="form.internal_domain"
-                    label="Pharosly Domain"
+                    v-model="form.subdomain"
+                    label="Pharosly Subdomain"
                     id="domain"
                     type="text"
                     placeholder="acme-space.pharosly.com"

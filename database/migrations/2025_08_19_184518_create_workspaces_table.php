@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->json('labels')->default('[]');
-            $table->string('internal_domain')->nullable()->default(null)->unique();
+            $table->string('subdomain')->nullable()->default(null)->unique();
             $table->string('domain')->nullable()->default(null)->unique();
             $table->string('path')->default('/');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

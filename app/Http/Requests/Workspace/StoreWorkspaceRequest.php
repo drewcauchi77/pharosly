@@ -28,8 +28,8 @@ class StoreWorkspaceRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'labels' => ['array', 'min:0', 'max:5'],
             'labels.*' => ['string', 'min:3', 'max:255'],
-            'internal_domain' => ['required', 'string', 'min:3', 'max:255'],
-            'domain' => ['nullable', 'string', 'min:3', 'max:255'],
+            'subdomain' => ['required', 'string', 'min:3', 'max:255', 'unique:workspaces,subdomain'],
+            'domain' => ['nullable', 'string', 'min:3', 'max:255', 'unique:workspaces,domain'],
             'path' => ['nullable', 'string', 'min:1', 'max:255'],
         ];
     }
